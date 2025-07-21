@@ -1,0 +1,52 @@
+<div
+  class="w-full rounded-4 border border-2 d-flex flex-column align-items-center mx-5 my-3 text-white"
+  style="background-color: #5465ff;"
+>
+  <h2 class="my-2">Recent Parking History</h2>
+  <div class="px-3 w-100 rounded-2">
+    <div
+      class="table-responsive rounded-4 bg-white"
+      style="max-height: 300px; overflow-y: auto; margin-bottom: 20px "
+    >
+      <table class="table table-bordered table-hover table-striped overflow-hidden text-center align-middle">
+        <thead class="table-primary">
+          <tr>
+            <th style="border: 2px solid #5465ff;" scope="col">ID</th>
+            <th style="border: 2px solid #5465ff;" scope="col">Location</th>
+            <th style="border: 2px solid #5465ff;" scope="col">Timestamp</th>
+            <th style="border: 2px solid #5465ff;" scope="col">Vehicle_no</th>
+            <th style="border: 2px solid #5465ff;" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+          <tr>
+            <th style="border: 2px solid #5465ff;" scope="row">{{ booking[0] }}</th>
+            <td style="border: 2px solid #5465ff;">{{ booking[1] }}</td>
+            <td style="border: 2px solid #5465ff;">{{ booking[2] }}</td>
+            <td style="border: 2px solid #5465ff;">{{ booking[3] }}</td>
+            <td style="border: 2px solid #5465ff;">
+              {% if booking[4] %}
+              <a class="btn btn-success disabled">Parked Out</a>
+              {% else %}
+              <button
+                class="btn btn-danger me-2 release-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#ReleaseParking"
+                data-bookingid="{{ booking[0] }}"
+                data-spotid="{{ booking[5] }}"
+                data-vehicleno="{{booking[3]}}"
+                data-parkingtime="{{booking[2]}}"
+                data-price="{{booking[6]}}"
+              >
+                Release
+              </button>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

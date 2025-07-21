@@ -1,0 +1,46 @@
+<div
+  class="modal fade"
+  id="ViewSpot"
+  tabindex="-1"
+  aria-labelledby="ViewSpotLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow rounded-4">
+      <div class="modal-header border-bottom-0">
+        <h3 class="modal-title" id="ViewSpotLabel">view / Delete Spot</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex">
+          <h4>ID:</h4>
+          <h4 id="spot-id" class="mx-2"></h4>
+        </div>
+        <div class="d-flex align-items-center">
+          <h4>Status:</h4>
+          <a style="cursor: pointer" class="btn btn-primary mx-2"
+            ><h3 id="spot-status" style="margin: 0%"></h3
+          ></a>
+        </div>
+        <!-- <p class="text-danger small">* Note: Cannot delete occupied spot</p> -->
+        <form method="POST" id="deleteSpotForm">
+          <input type="hidden" name="spot_id" id="delete-spot-id" />
+          <div class="d-flex justify-content-around mt-4">
+            <button type="submit" class="btn btn-danger px-4">Delete</button>
+            <a
+              href="/admindashboard"
+              type="button"
+              class="btn btn-primary px-4"
+            >
+              Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vehicle Parking App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="{{ url_for('static', filename='scripts/book_modal.js') }}"></script>
+    <style>
+      .nav-link {
+        translate: 0 3px;
+        position: relative;
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        transition: color 0.3s ease;
+        z-index: 1;
+        color: #0d6efd !important;
+        overflow: hidden;
+      }
+
+      .nav-link::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #0d6efd;
+        border-radius: 20px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+        z-index: -1;
+      }
+
+      .nav-link:hover::before {
+        transform: scaleX(1);
+      }
+
+      .nav-link:hover {
+        color: white !important;
+      }
+
+      body {
+        background-color: #edf3ff;
+        font-family: "Poppins", "Roboto", sans-serif;
+      }
+      .occupied {
+        background-color: red;
+      }
+      .a {
+        background-color: green;
+      }
+      body.modal-open .content-blur {
+        filter: blur(5px);
+        transition: filter 0.3s ease-in-out;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+        gap: 10px;
+        justify-items: center;
+      }
+
+      .spot {
+        width: 75px;
+        height: 130px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.2s;
+        color: #333;
+      }
+
+      .spot:hover {
+        transform: scale(1.05);
+      }
+
+      .occupied {
+        background-color: rgba(255, 0, 0, 0.3); /* semi-transparent red */
+        border: 2px dashed red;
+      }
+
+      .available {
+        background-color: rgba(0, 0, 255, 0.3); /* semi-transparent blue */
+        border: 2px dashed blue;
+      }
+
+      .allot {
+        background-color: rgba(0, 255, 0, 0.3); /* semi-transparent blue */
+        border: 2px dashed green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-blur py-3 px-5">
+      {% include 'UserNavbar.html' %} {%include "RecentParkingHistory.html"%}
+      {%include "SearchParkingLot.html"%}
+    </div>
+    {%include "LogoutCard.html"%} {% include "ReleaseParkingSpot.html" %}
+    {%include "BookParkingSpot.html"%} {%include "EditProfile.html"%}
+    <script src="{{ url_for('static', filename='scripts/release.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/book_modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/book_spot.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

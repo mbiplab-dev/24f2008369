@@ -1,0 +1,107 @@
+<div
+  class="w-full rounded-4 border border-2 d-flex flex-column align-items-center mx-5 my-3 text-white"
+  style="background-color: #5465ff"
+>
+  <h2 class="my-2">Search Parking Lot</h2>
+  <form method="POST" action="/dashboard" class="input-group mb-3 px-3 gap-2">
+    <input
+      type="text"
+      name="search"
+      class="form-control rounded-2"
+      placeholder="Enter Location/PinCode"
+      aria-describedby="basic-addon2"
+      value="{{ search_query if (search_query) else '' }}"
+      required
+    />
+    <div class="input-group-append">
+      <button
+        class="btn btn-outline-light dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        id="dropdownMenuButton"
+      >
+        Sort by
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#" onclick="selectOption('low to high')"
+          >low to high</a
+        >
+        <div role="separator" class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#" onclick="selectOption('high to low')"
+          >high to low</a
+        >
+      </div>
+    </div>
+    <input class="form-control" type="hidden" name="sort_by" id="filterInput" />
+    <div class="input-group-append">
+      <button class="btn btn-outline-light" type="submit">Search</button>
+    </div>
+  </form>
+
+  <div class="d-flex">
+    {%if (search_query)%}
+    <h4>Parking Lots at</h4>
+    <h4 style="color: orange; margin-left: 10px">{{search_query}}</h4>
+    {%else%}
+    <h4>All available lots</h4>
+    {%endif%}
+  </div>
+  {%if not(lots==[])%}
+  <div class="row row-cols-1 row-cols-md-5 g-4 w-100 mb-3">
+    {% for lot in lots %}
+    <div class="col">
+      <div
+        class="card h-100 shadow p-2"
+        style="
+          background-color: rgba(255, 255, 255, 0.521);
+          border: 3px solid #ffffffa6;
+        "
+      >
+        <img
+          src="{{ url_for('static', filename='uploads/lot_' ~ lot[0] ~ '.png') }}"
+          onerror="this.onerror=null; this.src='https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';"
+          class="card-img-top"
+          alt="Parking Lot Image"
+          style="height: 200px; object-fit: cover; margin-top: 20px"
+        />
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{ lot[3] }}</h5>
+          <p class="card-text"><strong>Address:</strong> {{ lot[1] }}</p>
+          <p class="card-text">
+            <strong>Available Spots:</strong> {{ lot[2] }}
+          </p>
+          <p class="card-text"><strong>Price/Hour:</strong> ₹{{ lot[4] }}</p>
+        </div>
+        <div class="w-100">
+          <button
+            type="button"
+            class="btn btn-light btn-l book-now-btn w-100"
+            data-bs-toggle="modal"
+            data-bs-target="#BookParking"
+            data-lot-id="{{ lot[0] }}"
+          >
+            Book Now
+          </button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {%else%}
+  <div class="d-flex justify-content-center mt-4">
+    <h4 style="color: crimson; margin: 20px">No Available Lots</h4>
+  </div>
+  {%endif%}
+</div>
+<script>
+  function selectOption(value) {
+    document.getElementById("filterInput").value = value;
+    document.getElementById("dropdownMenuButton").textContent =
+      "Sort by: " + value;
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

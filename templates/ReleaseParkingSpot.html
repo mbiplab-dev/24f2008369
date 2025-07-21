@@ -1,0 +1,89 @@
+<div
+  class="modal fade"
+  id="ReleaseParking"
+  tabindex="-1"
+  aria-labelledby="ReleaseParkingLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow rounded-4">
+      <div class="modal-header border-bottom-0">
+        <h3 class="modal-title" id="ReleaseParkingLabel">Release Parking Spot</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" id="releaseForm">
+          <div class="mb-2">
+            <label>Spot ID:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="releaseSpotId"
+              name="spot_id"
+              readonly
+            />
+          </div>
+
+          <div class="mb-2">
+            <label>Vehicle Number:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="releaseVehicleNo"
+              name="vehicle_no"
+              readonly
+            />
+          </div>
+
+          <div class="mb-2">
+            <label>Parking Time:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="releaseParkingTime"
+              name="parking_time"
+              readonly
+            />
+          </div>
+
+          <div class="mb-2">
+            <label>Releasing Time:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="releaseNowTime"
+              name="releasing_time"
+              readonly
+            />
+          </div>
+
+          <div class="mb-2">
+            <label>Total Cost (₹):</label>
+            <input
+              type="text"
+              class="form-control"
+              id="releaseCost"
+              name="total_cost"
+              readonly
+            />
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger">Release</button>
+            <a href="/dashboard"
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+          </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

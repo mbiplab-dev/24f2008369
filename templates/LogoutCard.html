@@ -1,0 +1,28 @@
+<div
+  class="modal fade"
+  id="LogoutCard"
+  tabindex="-1"
+  aria-labelledby="LogoutCardLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow rounded-4">
+      <div class="modal-header border-bottom-0">
+        <h3 class="modal-title" id="LogoutCardLabel">Confirm logout?</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" id="LogoutCardForm" action="/logout" >
+          <div class="d-flex justify-content-around mt-4">
+            <button type="submit" class="btn btn-danger px-4">Logout</button>
+            <a href="/dashboard" class="btn btn-outline-primary px-4">Go Back</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
