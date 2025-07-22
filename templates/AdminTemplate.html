@@ -25,42 +25,52 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a href="/dashboard">
+          <a href="/admindashboard">
             <i class="bx bx-dashboard-alt"></i>
             <span class="link_name">Dashboard</span>
           </a>
           <ul class="sub-menu blank">
-            <li><a class="link_name" href="/dashboard">Dashboard</a></li>
+            <li><a class="link_name" href="/admindashboard">Dashboard</a></li>
           </ul>
         </li>
         <li>
-          <a href="/summary">
+          <a href="/search">
+            <i class='bx  bx-search-alt'  ></i> 
+            <span class="link_name">Search</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="/search">Search</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="/users">
+            <i class='bx  bx-community'  ></i> 
+            <span class="link_name">Users</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="/users">Users</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="/adminsummary">
             <i class="bx bx-pie-chart-alt-2"></i>
             <span class="link_name">Summary</span>
           </a>
           <ul class="sub-menu blank">
-            <li><a class="link_name" href="/summary">Summary</a></li>
+            <li><a class="link_name" href="/adminsummary">Summary</a></li>
           </ul>
         </li>
         <li>
-          <a
-            data-bs-toggle="modal"
-            data-bs-target="#EditProfile"
-            style="cursor: pointer"
-          >
+          <a data-bs-toggle="modal" data-bs-target="#EditProfile" style="cursor: pointer;">
             <i class="bx bx-user-square"></i>
             <span class="link_name">Profile</span>
           </a>
           <ul class="sub-menu blank">
-            <li><a class="link_name">Profile</a></li>
+            <li><a class="link_name" >Profile</a></li>
           </ul>
         </li>
         <li>
-          <a
-            data-bs-toggle="modal"
-            data-bs-target="#LogoutCard"
-            style="cursor: pointer"
-          >
+          <a data-bs-toggle="modal" data-bs-target="#LogoutCard" style="cursor: pointer;">
             <i class="bx bx-log-out"></i>
             <span class="link_name">Logout</span>
           </a>
@@ -71,17 +81,25 @@
       </ul>
     </div>
     <section class="home-section">
-      <div class="home-content">
-        <i class="bx bx-menu" style="width: 150px"></i>
-        <span>Welcome, {{name}}</span>
-        <span class="text" style="margin-right: 20px">{{current}}</span>
+      <div class="home-content ">
+        <i class="bx bx-menu" style="width: 150px;"></i>
+        <span >Welcome, Admin</span>
+        <span class="text" style="margin-right: 20px;">{{current}}</span>
+        
       </div>
-      <div>
-        {% if (current == "Dashboard")%} {%include "UserDashboard.html"%}
-        {%else%} {%include "UserSummary.html"%} {% endif %}
-      </div>
+      <div>{% if (current == "Dashboard")%}
+        {%include "AdminDashboard.html"%}
+        {%elif (current == "Users")%}
+        {%include "RegisteredUsers.html"%}
+        {%elif (current == "Search")%}
+        {%include "AdminSearch.html"%}
+        {%else%}
+        {%include "AdminSummary.html"%}
+        {% endif %}
+
+    </div>
     </section>
-    {%include "LogoutCard.html"%} {%include "EditProfile.html"%}
+    {%include "LogoutCard.html"%}
     <script>
       let arrow = document.querySelectorAll(".arrow");
       for (var i = 0; i < arrow.length; i++) {

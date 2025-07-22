@@ -15,43 +15,7 @@
 
     <script src="{{ url_for('static', filename='scripts/book_modal.js') }}"></script>
     <style>
-      .nav-link {
-        translate: 0 3px;
-        position: relative;
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        transition: color 0.3s ease;
-        z-index: 1;
-        color: #0d6efd !important;
-        overflow: hidden;
-      }
-
-      .nav-link::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #0d6efd;
-        border-radius: 20px;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.3s ease;
-        z-index: -1;
-      }
-
-      .nav-link:hover::before {
-        transform: scaleX(1);
-      }
-
-      .nav-link:hover {
-        color: white !important;
-      }
-
       body {
-        background-color: #edf3ff;
         font-family: "Poppins", "Roboto", sans-serif;
       }
       .occupied {
@@ -96,28 +60,27 @@
       }
 
       .occupied {
-        background-color: rgba(255, 0, 0, 0.3); /* semi-transparent red */
+        background-color: rgba(255, 0, 0, 0.3);
         border: 2px dashed red;
       }
 
       .available {
-        background-color: rgba(0, 0, 255, 0.3); /* semi-transparent blue */
+        background-color: rgba(0, 0, 255, 0.3); 
         border: 2px dashed blue;
       }
 
       .allot {
-        background-color: rgba(0, 255, 0, 0.3); /* semi-transparent blue */
+        background-color: rgba(0, 255, 0, 0.3);
         border: 2px dashed green;
       }
     </style>
   </head>
   <body>
     <div class="content-blur py-3 px-5">
-      {% include 'UserNavbar.html' %} {%include "RecentParkingHistory.html"%}
+      {%include "RecentParkingHistory.html"%}
       {%include "SearchParkingLot.html"%}
-    </div>
-    {%include "LogoutCard.html"%} {% include "ReleaseParkingSpot.html" %}
-    {%include "BookParkingSpot.html"%} {%include "EditProfile.html"%}
+    </div>{% include "ReleaseParkingSpot.html" %}
+    {%include "BookParkingSpot.html"%}
     <script src="{{ url_for('static', filename='scripts/release.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/book_modal.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/book_spot.js') }}"></script>

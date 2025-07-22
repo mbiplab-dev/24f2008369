@@ -14,40 +14,7 @@
       rel="stylesheet"
     />
     <style>
-      .nav-link {
-        translate: 0 3px;
-        position: relative;
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        transition: color 0.3s ease;
-        z-index: 1;
-        color: #0d6efd !important;
-        overflow: hidden;
-      }
-
-      .nav-link::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #0d6efd;
-        border-radius: 20px;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.3s ease;
-        z-index: -1;
-      }
-
-      .nav-link:hover::before {
-        transform: scaleX(1);
-      }
-
-      .nav-link:hover {
-        color: white !important;
-      }
+      
       body {
         font-family: "Poppins", "Roboto", sans-serif;
         background-color: #edf3ff;
@@ -63,15 +30,13 @@
     </style>
   </head>
   <body>
-    <div class="content-blur py-3 px-5">
-      {%include "AdminNavbar.html"%}
+    <div class="content-blur px-5">
       <div
         class="container mt-4 p-3 d-flex justify-content-center border rounded-4 bg-white"
         style="margin: 0 0 0 0; max-width: 100vw"
       >
         <form method="POST" class="w-100">
           <div class="input-group">
-            <!-- Dropdown button -->
             <div class="input-group-prepend">
               <button
                 class="btn btn-outline-primary dropdown-toggle"

@@ -4,6 +4,9 @@ from jinja2 import Template
 import os
 from datetime import datetime
 from werkzeug.utils import secure_filename
+from flask_bcrypt import Bcrypt
+
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR,'static', 'uploads')
@@ -15,6 +18,9 @@ if not os.path.exists(DB_PATH):
 
 app = Flask(__name__)
 app.secret_key = "lol"
+
+bcrypt = Bcrypt(app)
+
 
 @app.route('/')
 def LandingPage():
@@ -31,15 +37,15 @@ def login():
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
 
-        cursor.execute("SELECT id, full_name, password FROM users WHERE username=? ", (username,))
+        cursor.execute("SELECT id, username, password FROM users WHERE username=? ", (username,))
         user = cursor.fetchone()
         conn.close()
 
         if user:
-            user_id, full_name, stored_password = user
-            if stored_password == password:
+            user_id, username, stored_password = user
+            if (bcrypt.check_password_hash(stored_password, password)):
                 session["user_id"] = user_id
-                session["username"] = full_name
+                session["username"] = username
                 flash("Login successful!", "success")
                 return redirect(url_for("UserDashboard")) 
             else:
@@ -58,7 +64,7 @@ def signup():
         password = request.form['password']
         address = request.form.get('address', '')
         pincode = request.form.get('pincode', '')
-
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         try:
             conn = sqlite3.connect(DB_PATH)
             cursor = conn.cursor()
@@ -66,7 +72,7 @@ def signup():
             cursor.execute('''
                 INSERT INTO users (username, full_name, password, address, pincode)
                 VALUES (?, ?, ?, ?, ?)
-            ''', (username, full_name, password, address, pincode))
+            ''', (username, full_name, hashed_password, address, pincode))
 
             conn.commit()
             conn.close()
@@ -176,7 +182,7 @@ def UserDashboard():
     spot_list = [{"id": row[0], "status": row[1]} for row in spots]
     
     conn.close()
-    return render_template("UserDashboard.html", lots=lots, bookings=bookings , name=full_name, search_query=search_query , user=user)
+    return render_template("UserTemplate.html",current="Dashboard", lots=lots, bookings=bookings , name=full_name, search_query=search_query , user=user)
 
 
 
@@ -215,7 +221,7 @@ def AdminDashboard():
         })
 
     conn.close()
-    return render_template("AdminDashboard.html", lots=all_lots)
+    return render_template("AdminTemplate.html",current="Dashboard", lots=all_lots)
 
 
 @app.route('/users')
@@ -226,7 +232,7 @@ def show_users():
     cursor.execute('SELECT * FROM users')
     users = cursor.fetchall()
     conn.close()
-    return render_template('registeredUsers.html', users=users)
+    return render_template("AdminTemplate.html",current="Users", users=users)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
@@ -263,7 +269,7 @@ def AddParkingLot():
     
     image = request.files.get('image')
     if image and allowed_file(image.filename):
-        filename = secure_filename(f"lot_{lot_id} " + ".png")
+        filename = secure_filename(f"lot_{lot_id}" + ".png")
         image_path = os.path.join(UPLOAD_FOLDER, filename)
         image.save(image_path)
     return redirect(url_for("AdminDashboard"))
@@ -465,7 +471,7 @@ def UserSummary():
         total_time=0
     
     cursor.execute("""
-        SELECT parking_lots.address, COUNT(*) as count
+        SELECT parking_lots.prime_location_name, COUNT(*) as count
         FROM bookings JOIN parking_lots ON bookings.lot_id = parking_lots.id
         WHERE bookings.user_id = ?
         GROUP BY lot_id ORDER BY count DESC LIMIT 1
@@ -526,7 +532,7 @@ def UserSummary():
     conn.close()
 
 
-    return render_template("UserSummary.html",name=full_name,
+    return render_template("UserTemplate.html",current = "Summary",name=full_name,
         stats={
             "total_bookings": total_bookings or 0,
             "total_cost": round(total_cost or 0, 2),
@@ -610,9 +616,9 @@ def AdminSearch():
 
         conn.close()
 
-        return render_template("AdminSearch.html", results=results, search_query=query)
+        return render_template("AdminTemplate.html",current="Search", results=results, search_query=query)
 
-    return render_template("AdminSearch.html")
+    return render_template("AdminTemplate.html",current="Search")
 
 
 
@@ -672,7 +678,7 @@ def AdminSummary():
 
     conn.close()
 
-    return render_template("AdminSummary.html", 
+    return render_template("AdminTemplate.html",current="Summary", 
         stats={
             'total_users': total_users,
             'total_bookings': total_bookings,
