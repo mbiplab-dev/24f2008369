@@ -1,37 +1,65 @@
-🚗 Vehicle Parking App - V1
+# 🚗 Vehicle Parking App - V1
 
-📌 Project Overview
-This is a multi-user 4-wheeler parking management app developed as part of the Modern Application Development I course. It includes role-based access control for Admin (superuser) and Users, allowing the creation and management of parking lots, spots, and reservations.
+A web-based vehicle parking management system built with **Flask**, **SQLite**, **Bootstrap**, and **Chart.js** that allows users to search, book, and manage parking lots, while giving administrators powerful tools to control availability, pricing, and statistics.
 
-🔧 Technologies Used
-Layer	Framework/Library
-Backend	Flask
-Frontend	HTML, CSS, Bootstrap, Jinja2
-Database	SQLite
-Auth  Flask-Login
+---
 
-👥 Roles & Features
-🔐 Admin (Superuser - No Registration Required)
-Login as admin with pre-created credentials.
+## 📌 Features
 
-Create, edit, delete parking lots (with dynamic number of spots).
+### 👤 User Side
+- 🔍 **Search Parking Lots** by location or area
+- 📊 **Filter and Sort** by availability and price
+- 🖼️ **View Images** of parking lots
+- 📅 **Book a Parking Spot** in real time
+- 🧾 **View Booking History**
+- 📈 **Dashboard Charts** showing usage stats
+- 🔐 Secure **User Registration** and **Login** with bcrypt
 
-View current status of all parking spots.
+### 🛠️ Admin Side
+- ➕ **Add New Parking Lots** with:
+  - Location
+  - Price per hour
+  - Number of available spots
+  - Parking image (stored in `/static/uploads`)
+- 📷 Upload images tagged by lot ID (e.g. `lot_5.png`)
+- 📦 **Dashboard with Charts**:
+  - Bookings per lot (Bar chart)
+  - Duration distribution (Pie chart)
+  - Daily spending trends (Line chart with shaded area)
+- 📃 **Full control over lot management**
 
-View user list and details of each reservation.
+---
 
-View visual dashboards and summary charts.
+## 🗃️ Tech Stack
 
-👤 User
-Register/Login using email and password.
+| Layer       | Tech Stack                 |
+|-------------|----------------------------|
+| Backend     | Flask (Python)             |
+| Frontend    | HTML, Bootstrap 5, JS      |
+| Charts      | Chart.js                   |
+| Database    | SQLite                     |
+| Auth        | Flask `session` + bcrypt   |
+| File Upload | Stored in `/static/uploads/` |
 
-View available parking lots.
+---
 
-Reserve the first available parking spot.
+## 🧱 Project Structure
 
-Release (vacate) spot.
-
-View history of reservations and cost.
-
-See personal dashboard with usage summary.
-
+vehicle-parking-app/
+│
+├── app.py                      # Main Flask app
+├── controllers/                # Modular Flask routes (optional)
+│   ├── auth.py
+│   ├── admin.py
+│   └── user.py
+├── templates/
+│   ├── login.html              # Login form
+│   ├── register.html           # Register form
+│   ├── user_dashboard.html
+│   ├── admin_dashboard.html
+│   └── ...
+├── static/
+│   ├── uploads/                # Uploaded lot images
+│   ├── css/
+│   └── js/
+└── README.md
