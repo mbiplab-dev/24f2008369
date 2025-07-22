@@ -19,6 +19,12 @@
         font-family: "Poppins", "Roboto", sans-serif;
         background-color: #edf3ff;
       }
+      .card-sm {
+        background-color: #671f68bb; border: 3px solid #4A154B;
+        color: white;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      }
       .card {
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
@@ -35,25 +41,25 @@
         <h2 class="fw-bold text-center mb-4">Admin Dashboard Summary</h2>
         <div class="row g-4 mb-4">
           <div class="col-md-3">
-            <div class="card text-center p-3 shadow-sm">
+            <div class="card-sm text-center p-3 shadow-sm">
               <h6>Total Users</h6>
               <h4>{{ stats.total_users }}</h4>
             </div>
           </div>
           <div class="col-md-3">
-            <div class="card text-center p-3 shadow-sm">
+            <div class="card-sm text-center p-3 shadow-sm">
               <h6>Total Bookings</h6>
               <h4>{{ stats.total_bookings }}</h4>
             </div>
           </div>
           <div class="col-md-3">
-            <div class="card text-center p-3 shadow-sm">
+            <div class="card-sm text-center p-3 shadow-sm">
               <h6>Total Revenue</h6>
               <h4>₹{{ stats.total_income }}</h4>
             </div>
           </div>
           <div class="col-md-3">
-            <div class="card text-center p-3 shadow-sm">
+            <div class="card-sm text-center p-3 shadow-sm">
               <h6>Most Used Lot</h6>
               <h5>{{ stats.most_used_lot }}</h5>
             </div>

@@ -14,7 +14,6 @@
       rel="stylesheet"
     />
     <style>
-      
       body {
         font-family: "Poppins", "Roboto", sans-serif;
         background-color: #edf3ff;
@@ -32,14 +31,19 @@
   <body>
     <div class="content-blur px-5">
       <div
-        class="container mt-4 p-3 d-flex justify-content-center border rounded-4 bg-white"
-        style="margin: 0 0 0 0; max-width: 100vw"
+        class="container mt-4 p-3 d-flex justify-content-center rounded-4"
+        style="
+          margin: 0 0 0 0;
+          max-width: 100vw;
+          background-color: #671f68bb;
+          border: 3px solid #4a154b;
+        "
       >
         <form method="POST" class="w-100">
           <div class="input-group">
             <div class="input-group-prepend">
               <button
-                class="btn btn-outline-primary dropdown-toggle"
+                class="btn btn-outline-light dropdown-toggle"
                 type="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
@@ -52,15 +56,15 @@
                 <a
                   class="dropdown-item"
                   href="#"
-                  onclick="selectOption('Users')"
-                  >Users</a
+                  onclick="selectOption('User Id')"
+                  >User Id</a
                 >
                 <div role="separator" class="dropdown-divider"></div>
                 <a
                   class="dropdown-item"
                   href="#"
-                  onclick="selectOption('Address')"
-                  >Address</a
+                  onclick="selectOption('User Address')"
+                  >User Address</a
                 >
                 <div role="separator" class="dropdown-divider"></div>
                 <a
@@ -68,6 +72,20 @@
                   href="#"
                   onclick="selectOption('Lot Id')"
                   >Lot Id</a
+                >
+                <div role="separator" class="dropdown-divider"></div>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="selectOption('Lot Address')"
+                  >Lot Address</a
+                >
+                <div role="separator" class="dropdown-divider"></div>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="selectOption('Spot Id')"
+                  >Spot Id</a
                 >
               </div>
             </div>
@@ -89,19 +107,53 @@
             />
 
             <div class="input-group-append">
-              <button class="btn btn-primary" type="submit">Search</button>
+              <button class="btn btn-light" type="submit">Search</button>
             </div>
           </div>
         </form>
       </div>
-      <script>
-        function selectOption(value) {
-          document.getElementById("filterInput").value = value;
-          document.getElementById("dropdownMenuButton").textContent =
-            "Search by: " + value;
-        }
-      </script>
+      <div style="width: 100%">
+        {%if (filter_by)%} {%if (filter_by=="Lot Address")%} {%include
+        "AllLots.html"%} {%elif (filter_by=="User Id")%} {%include
+        "Users.html"%} {%elif (filter_by=="User Address")%} {%include
+        "Users.html"%} {%elif (filter_by=="Lot Id")%} {%include "AllLots.html"%}
+        {%elif (filter_by=="Spot Id")%}
+        <div
+          class="rounded-4 m-3"
+          style="max-width: 500px;background-color: #6c1e6da6; border: 3px solid #4A154B;"
+        >
+
+            <h3 class="mb-0 text-white d-flex justify-content-center p-2">Spot details</h3>
+          
+          <div class="d-flex flex-column text-white m-2 gap-3">
+            <h5><strong>Spot ID:</strong> {{ search_query }}</h5>
+            <h5><strong>Lot ID:</strong> {{ results[0] }}</h5>
+            <h5><strong>Lot Name:</strong> {{ results[1] }}</h5>
+            <h5><strong>Lot Address:</strong> {{ results[3] }}</h5>
+            <h5>
+              <strong>Availability:</strong>
+              {% if results[6] == 'A' %}
+              <span class="badge bg-success"><h5 class="mb-0">Available</h5></span>
+              {% else %}
+              <span class="badge bg-danger"><h5 class="mb-0">Occupied</h5></span>
+              {% endif %}
+            </h5>
+          </div>
+        </div>
+        {%else%}
+        <div class="w-100 d-flex p-3 justify-content-center">
+          <h1>No Results</h1>
+        </div>
+        {%endif%} {%endif%}
+      </div>
     </div>
+    <script>
+      function selectOption(value) {
+        document.getElementById("filterInput").value = value;
+        document.getElementById("dropdownMenuButton").textContent =
+          "Search by: " + value;
+      }
+    </script>
     {%include "LogoutCard.html"%}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,4 +1,24 @@
+<style>
+        .available{
+        background-color: rgba(2, 104, 2, 0.5);
+        border: 2px solid rgba(2, 104, 2);
+      }
+      .available:hover{
+        background-color: rgba(2, 104, 2, 0.6);
+        border: 2px solid rgba(2, 104, 2);
+      }
+      .occupied{
+        background-color: rgba(187, 17, 17, 0.61);
+        border: 2px solid rgb(173, 2, 2);
+      }
+      .occupied:hover{
+        background-color: rgba(187, 17, 17, 0.71);
+        border: 2px solid rgb(173, 2, 2);
+      }
+</style>
+
 <div>
+  {%if not(lots==[])%}
   <div class="container mt-4">
     <div class="row">
       {% for lot in lots %}
@@ -8,7 +28,7 @@
             <div
               class="d-flex flex-column justify-content-center align-items-center"
             >
-              <h5 class="card-title">{{ lot.prime_location_name }}</h5>
+              <h4 class="card-title">{{ lot.prime_location_name }}</h4>
               <p class="card-text">Location: {{ lot.address }}</p>
 
               <div class="my-2 d-flex gap-3">
@@ -81,4 +101,9 @@
       {% endfor %}
     </div>
   </div>
+  {%else%}
+  <div class="w-100 d-flex p-3 justify-content-center">
+          <h1>No Results</h1>
+        </div>
+  {%endif%}
 </div>

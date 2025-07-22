@@ -326,6 +326,13 @@ def EditParkingLot(lot_id):
 
         conn.commit()
         conn.close()
+        
+        image = request.files.get('editImage')
+        if image and allowed_file(image.filename):
+            filename = secure_filename(f"lot_{lot_id}" + ".png")
+            image_path = os.path.join(UPLOAD_FOLDER, filename)
+            image.save(image_path)
+        
 
         flash("Parking lot updated successfully!", "success")
     else:
@@ -406,10 +413,6 @@ def api_first_free_spot(lot_id):
     conn.close()
     return {'spot_id': row[0] , "spots":spots} if row else {'spot_id': None}
 
-
-from flask import request, redirect, url_for, flash
-from datetime import datetime
-import sqlite3
 
 @app.route("/releaseparking/<int:booking_id>", methods=["POST"])
 def ReleaseParking(booking_id):
@@ -588,35 +591,92 @@ def AdminSearch():
     if request.method == 'POST':
         filter_by = request.form['filter_by']
         query = request.form['query']
-
+        print(request.form)
         conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
 
         results = []
 
-        if filter_by == 'location':
+        if filter_by == 'Lot Address':
             cursor.execute("SELECT * FROM parking_lots WHERE address LIKE ?", (f"%{query}%",))
             lots = cursor.fetchall()
 
             for lot in lots:
-                cursor.execute("SELECT * FROM parking_spots WHERE lot_id = ?", (lot['id'],))
+                lot_id = lot["id"]
+                cursor.execute("SELECT * FROM parking_spots WHERE lot_id = ?", (lot_id,))
                 spots = cursor.fetchall()
-                occupied = sum(1 for spot in spots if spot['Status'] == 'O')
+
+                available_spots = sum(1 for spot in spots if spot["Status"] == "A")
                 results.append({
-                    'id': lot['id'],
-                    'max_spots': lot['max_spots'],
-                    'occupied': occupied,
-                    'spots': [{'status': s['Status']} for s in spots]
-                })
+                "id": lot["id"],
+                "prime_location_name": lot["prime_location_name"],
+                "address": lot["address"],
+                "pincode":lot["pincode"],
+                "price_per_hour":lot["price_per_hour"],
+                "max_spots": lot["max_spots"],
+                "available_spots": available_spots,
+                "spots": [
+                    {
+                        "spot_id":spot['id'],
+                        "label": f"S{spot['id']}",
+                        "is_available": spot["Status"]
+                    } for spot in spots
+                ]
+            })
+            return render_template("AdminTemplate.html",current="Search", lots=results,filter_by=filter_by, search_query=query)
 
-        elif filter_by == 'user_id':
-            # Optional: Handle user_id based search
+        if filter_by == 'Lot Id':
+            cursor.execute("SELECT * FROM parking_lots WHERE id = ?", (query,))
+            lots = cursor.fetchall()
+
+            for lot in lots:
+                lot_id = lot["id"]
+                cursor.execute("SELECT * FROM parking_spots WHERE lot_id = ?", (lot_id,))
+                spots = cursor.fetchall()
+
+                available_spots = sum(1 for spot in spots if spot["Status"] == "A")
+                results.append({
+                "id": lot["id"],
+                "prime_location_name": lot["prime_location_name"],
+                "address": lot["address"],
+                "pincode":lot["pincode"],
+                "price_per_hour":lot["price_per_hour"],
+                "max_spots": lot["max_spots"],
+                "available_spots": available_spots,
+                "spots": [
+                    {
+                        "spot_id":spot['id'],
+                        "label": f"S{spot['id']}",
+                        "is_available": spot["Status"]
+                    } for spot in spots
+                ]
+            })
+            return render_template("AdminTemplate.html",current="Search", lots=results,filter_by=filter_by, search_query=query)
+
+        elif filter_by == 'User Id':
+            cursor.execute('SELECT * FROM users WHERE id=?',(query))
+            users = cursor.fetchall()
+            return render_template("AdminTemplate.html",current="Search", users=users,filter_by=filter_by, search_query=query)
+        elif filter_by == 'User Address':
+            cursor.execute('SELECT * FROM users WHERE address LIKE ?', (f"%{query}%",))
+            users = cursor.fetchall()
+            return render_template("AdminTemplate.html",current="Search", users=users,filter_by=filter_by, search_query=query)
+        elif filter_by == 'Spot Id':
+           cursor.execute('''
+                SELECT pl.*,ps.Status
+                FROM parking_spots ps
+                JOIN parking_lots pl ON ps.lot_id = pl.id
+                WHERE ps.id = ?
+            ''', (query,))
+           results = cursor.fetchone()
+           return render_template("AdminTemplate.html",current="Search", results=results,filter_by=filter_by, search_query=query)
+
+        else:
             pass
-
         conn.close()
 
-        return render_template("AdminTemplate.html",current="Search", results=results, search_query=query)
+        return render_template("AdminTemplate.html",current="Search")
 
     return render_template("AdminTemplate.html",current="Search")
 
