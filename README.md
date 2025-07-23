@@ -44,22 +44,35 @@ A web-based vehicle parking management system built with **Flask**, **SQLite**, 
 ---
 
 ## 🧱 Project Structure
-
-vehicle-parking-app/
+<pre>
+24F2008369/
+├── controllers/                # Flask Blueprints / Route Controllers
+│   ├── admin_controller.py
+│   ├── api_controller.py
+│   ├── auth_controller.py
+│   └── user_controller.py
 │
-├── app.py                      # Main Flask app
-├── controllers/                # Modular Flask routes (optional)
-│   ├── auth.py
-│   ├── admin.py
-│   └── user.py
-├── templates/
-│   ├── login.html              # Login form
-│   ├── register.html           # Register form
-│   ├── user_dashboard.html
-│   ├── admin_dashboard.html
-│   └── ...
-├── static/
-│   ├── uploads/                # Uploaded lot images
+├── data/                       # Static data (e.g. JSON, mock credentials)
+│   └── admin_credentials.json
+│
+├── models/                     # Database models & SQLite DB files
+│   ├── model.py
+│   ├── Parking.db
+│   └── Sample.db
+│
+├── static/                     # Static frontend assets
 │   ├── css/
-│   └── js/
-└── README.md
+│   ├── images/
+│   ├── scripts/
+│   └── uploads/
+│
+├── templates/                  # Jinja2 HTML Templates
+│   └── HTML files are here
+│
+├── app.py                      # Main application entry point
+├── extensions.py               # Flask extensions like Bcrypt, etc.
+├── init.py                     # Script to install requirements
+├── requirements.txt            # Python dependencies
+├── README.md                   # Project overview
+└── example.txt                 # Example data / temp file
+
