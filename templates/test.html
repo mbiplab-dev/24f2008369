@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Parking History</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      padding: 20px;
+    }
+
+    .table-container {
+      max-width: 900px;
+      margin: auto;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .table-header, .table-row {
+      display: flex;
+      padding: 12px 16px;
+    }
+
+    .table-header {
+      background-color: #343a40;
+      color: white;
+      font-weight: bold;
+    }
+
+    .table-row {
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      transition: background 0.3s;
+    }
+
+    .table-row:hover {
+      background-color: #f1f1f1;
+    }
+
+    .table-cell {
+      flex: 1;
+      padding: 4px 8px;
+    }
+
+    .table-cell:nth-child(1) { flex: 2; } /* Parking Lot Name gets more space */
+  </style>
+</head>
+<body>
+
+  <h2>🚘 Parking History</h2>
+
+  <div class="table-container">
+
+    <div class="table-header">
+      <div class="table-cell">Parking Lot</div>
+      <div class="table-cell">Date</div>
+      <div class="table-cell">Time In</div>
+      <div class="table-cell">Time Out</div>
+      <div class="table-cell">Amount</div>
+    </div>
+
+    <div class="table-row">
+      <div class="table-cell">Connaught Place, Delhi</div>
+      <div class="table-cell">2025-07-18</div>
+      <div class="table-cell">10:30 AM</div>
+      <div class="table-cell">12:15 PM</div>
+      <div class="table-cell">₹60</div>
+    </div>
+
+    <div class="table-row">
+      <div class="table-cell">Phoenix MarketCity, Mumbai</div>
+      <div class="table-cell">2025-07-15</div>
+      <div class="table-cell">2:00 PM</div>
+      <div class="table-cell">4:30 PM</div>
+      <div class="table-cell">₹100</div>
+    </div>
+
+    <div class="table-row">
+      <div class="table-cell">Millennium Park, Chicago</div>
+      <div class="table-cell">2025-07-10</div>
+      <div class="table-cell">1:00 PM</div>
+      <div class="table-cell">3:00 PM</div>
+      <div class="table-cell">$8</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

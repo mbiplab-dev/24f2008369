@@ -6,7 +6,10 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content shadow rounded-4" style="border: 3px solid #7c217e">
+    <div
+      class="modal-content shadow rounded-4"
+      style="border: 3px solid #7c217e"
+    >
       <div class="modal-header border-bottom-0">
         <h3 class="modal-title" id="ViewSpotLabel">view / Delete Spot</h3>
         <button
@@ -22,11 +25,16 @@
         </div>
         <div class="d-flex align-items-center">
           <h4>Status:</h4>
-          <a style="cursor: pointer" class="btn btn-primary mx-2"
+          <a
+            style="cursor: pointer"
+            id="spotStatusParent"
+            class="show-spot-details btn mx-2"
+            data-bs-toggle="modal"
+            data-bs-target="#OccupiedSpot"
+            data-showspotid = ""
             ><h3 id="spot-status" style="margin: 0%"></h3
           ></a>
         </div>
-        <!-- <p class="text-danger small">* Note: Cannot delete occupied spot</p> -->
         <form method="POST" id="deleteSpotForm">
           <input type="hidden" name="spot_id" id="delete-spot-id" />
           <div class="d-flex justify-content-around mt-4">

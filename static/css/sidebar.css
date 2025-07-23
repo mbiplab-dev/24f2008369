@@ -196,6 +196,26 @@
   font-size: 26px;
   font-weight: 600;
 }
+.scrollable-container {
+  background-color: #4a154b;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+  background-color: #4a154b;
+}
+
+
 @media (max-width: 420px) {
   .sidebar.close .nav-links li .sub-menu {
     display: none;

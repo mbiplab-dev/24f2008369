@@ -1,0 +1,34 @@
+<div
+  class="modal fade"
+  id="OccupiedSpot"
+  tabindex="-1"
+  aria-labelledby="OccupiedSpotLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow rounded-4" style="border: 3px solid #7c217e">
+      <div class="modal-header border-bottom-0">
+        <h3 class="modal-title" id="OccupiedSpotLabel">Occupied Spot details</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body" id="spotDetailsBody">
+        <div class="modal-body" id="spotDetailsContent">
+        <div class="mb-3 fs-6"><strong>ID:</strong> <span id="showSpotId">-</span></div>
+        <div class="mb-3 fs-6"><strong>Customer ID:</strong> <span id="showUserId">-</span></div>
+        <div class="mb-3 fs-6"><strong>Vehicle number:</strong> <span id="showVehicleNo">-</span></div>
+        <div class="mb-3 fs-6"><strong>Date/time of parking:</strong> <span id="showParkingTime">-</span></div>
+        <div class="mb-3 fs-6"><strong>Est. parking cost:</strong> ₹<span id="showParkingCost">-</span></div>
+        <div class="mb-3 fs-6"><strong>Lot ID:</strong> <span id="showLotId">-</span></div>
+        <div class="mb-3 fs-6"><strong>Lot Name:</strong> <span id="showLotName">-</span></div>
+        <div class="mb-3 fs-6"><strong>Lot Address:</strong> <span id="showLotAddress">-</span></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

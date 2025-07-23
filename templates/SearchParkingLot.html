@@ -49,7 +49,7 @@
     {%endif%}
   </div>
   {%if not(lots==[])%}
-  <div class="row row-cols-1 row-cols-md-5 g-4 w-100 mb-3">
+  <div class="row row-cols-1 row-cols-md-4 g-4 w-100 mb-3">
     {% for lot in lots %}
     <div class="col">
       <div
@@ -64,7 +64,7 @@
           onerror="this.onerror=null; this.src='https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';"
           class="card-img-top"
           alt="Parking Lot Image"
-          style="height: 200px; object-fit: cover; margin-top: 20px"
+          style="height: 200px; object-fit:contain; margin-top: 20px"
         />
         <div class="card-body">
           <h5 class="card-title text-primary">{{ lot[3] }}</h5>
