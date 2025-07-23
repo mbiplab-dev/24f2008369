@@ -62,15 +62,6 @@
           </ul>
         </li>
         <li>
-          <a data-bs-toggle="modal" data-bs-target="#EditProfile" style="cursor: pointer;">
-            <i class="bx bx-user-square"></i>
-            <span class="link_name">Profile</span>
-          </a>
-          <ul class="sub-menu blank">
-            <li><a class="link_name" >Profile</a></li>
-          </ul>
-        </li>
-        <li>
           <a data-bs-toggle="modal" data-bs-target="#LogoutCard" style="cursor: pointer;">
             <i class="bx bx-log-out"></i>
             <span class="link_name">Logout</span>
@@ -115,5 +106,14 @@
         sidebar.classList.toggle("close");
       });
     </script>
+        {% include "EditParkingLotCard.html" %}
+    {% include "DeleteParkingLotCard.html" %}
+    {%include "LogoutCard.html"%}
+    {%include "ViewDeleteSpot.html"%}
+    {%include "OccupiedSpotDetails.html"%}
+    <script src="{{ url_for('static', filename='scripts/view_spot.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/edit_lot.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/delete_lot.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/view_occ_spot.js') }}"></script>
   </body>
 </html>

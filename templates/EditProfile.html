@@ -17,7 +17,7 @@
       </div>
       <div class="modal-body">
         <div class="container">
-          <form method="POST" action="{{ url_for('EditProfile') }}">
+          <form method="POST" action="{{ url_for('user.EditProfile') }}">
             <div class="mb-3">
               <label for="username" class="form-label">Username (Email)</label>
               <input
@@ -80,7 +80,7 @@
                 Save Changes
               </button>
               <a
-                href="{{ url_for('DeleteAccount') }}"
+                href="{{ url_for('auth.DeleteAccount') }}"
                 class="btn btn-danger"
                 onclick="return confirm('Are you sure you want to delete your account? This action is irreversible.');"
                 >Delete Account</a
