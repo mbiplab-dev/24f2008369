@@ -18,6 +18,7 @@
         font-family: "Poppins", "Roboto", sans-serif;
       }
       .card {
+        border: 3px solid #4A154B;
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
       }
@@ -32,7 +33,7 @@
           <div class="col-md-3">
             <div
               class="card p-3 text-center text-white"
-              style="background-color: #5b6bffd2; border: 3px solid #5465ff;"
+              style="background-color: #671f68bb;"
             >
               <h5>Total Bookings</h5>
               <h3>{{ stats.total_bookings }}</h3>
@@ -41,7 +42,7 @@
           <div class="col-md-3">
             <div
               class="card p-3 text-center text-white"
-              style="background-color: #5b6bffd2; border: 3px solid #5465ff;"
+              style="background-color: #671f68bb;"
             >
               <h5>Total Hours Parked</h5>
               <h3>{{ stats.total_time }}</h3>
@@ -50,7 +51,7 @@
           <div class="col-md-3">
             <div
               class="card p-3 text-center text-white"
-              style="background-color: #5b6bffd2; border: 3px solid #5465ff;"
+              style="background-color: #671f68bb;"
             >
               <h5>Total Amount Spent</h5>
               <h3>₹{{ stats.total_cost }}</h3>
@@ -59,7 +60,7 @@
           <div class="col-md-3">
             <div
               class="card p-3 text-center text-white"
-              style="background-color: #5b6bffd2; border: 3px solid #5465ff; height: 100%"
+              style="background-color: #671f68bb; height: 100%"
             >
               <h5>Most Used Lot</h5>
               <h5 class="mt-2">{{ stats.most_used_lot }}</h5>

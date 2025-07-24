@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (spot[0] === data.spot_id) {
               div.classList.add('allot');
-            } else if (spot[1] === '0') {
+            } else if (spot[1] === 'O') {
               div.classList.add('occupied');
             } else if (spot[1] === 'A') {
               div.classList.add('available');

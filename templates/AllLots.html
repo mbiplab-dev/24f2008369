@@ -65,26 +65,26 @@
               />
 
               <p class="card-text">
-                Spots: {{ lot.available_spots }}/{{ lot.max_spots }}
+                Available Spots: {{ lot.available_spots }}/{{ lot.max_spots }}
               </p>
             </div>
 
             <div
-              class="w-100 m-2 py-3 d-flex flex-column justify-content-center align-items-center rounded-2"
+              class="w-100 m-2 p-3 d-flex flex-column justify-content-center align-items-center rounded-2"
               style="
           background-color: rgba(255, 255, 255, 0.521);
           border: 3px solid #ffffffa6;
         "
             >
-              <div class=" row gap-2 m-0">
+              <div class=" row gy-2">
                 {% for spot in lot.spots %}
-                <div class="col-md-2 ">
+                <div class="col-4 col-md-4 col-lg-3 mb-2 d-flex justify-content-center align-items-center">
                 <a
                   data-bs-toggle="modal"
                   data-bs-target="#ViewSpot"
                   data-spotid="{{spot.spot_id}}"
                   data-status="{{spot.is_available}}"
-                  class="delete-spot-btn btn available col  slot w-auto {{ 'available' if spot.is_available == 'A' else 'occupied' }}"
+                  class="delete-spot-btn btn available  slot w-auto {{ 'available' if spot.is_available == 'A' else 'occupied' }}"
                 >
                   <h2 class="p-2" style="margin: 0%">
                     {{ spot.is_available }}

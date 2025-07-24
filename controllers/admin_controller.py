@@ -367,9 +367,16 @@ def AdminSummary():
     days = [row[0] for row in daily_rows][::-1]
     daily_income = [round(row[1], 2) for row in daily_rows][::-1]
 
-    # All users
-    cursor.execute("SELECT id, username, full_name, address, pincode FROM users")
-    users = [dict(zip(['id', 'username', 'full_name', 'address', 'pincode'], row)) for row in cursor.fetchall()]
+    cursor.execute('''
+    SELECT DATE(parking_timestamp) as date, COUNT(*) as bookings
+    FROM bookings
+    GROUP BY DATE(parking_timestamp)
+    ORDER BY date DESC
+    LIMIT 7
+    ''')
+    booking_rows = cursor.fetchall()
+    booking_days = [row[0] for row in booking_rows][::-1]
+    daily_bookings = [row[1] for row in booking_rows][::-1]
 
     conn.close()
 
@@ -386,6 +393,10 @@ def AdminSummary():
             'days': days,
             'daily_income': daily_income
         },
-        users=users
+        booking_chart={
+            'booking_days': booking_days,
+            'daily_bookings': daily_bookings
+        }
+
     )
   

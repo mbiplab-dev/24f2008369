@@ -91,7 +91,6 @@ def UserDashboard():
         ORDER BY b.parking_timestamp DESC
     ''', (user_id,))
     bookings = cursor.fetchall()
-    
     cursor.execute("SELECT username, full_name, address, pincode FROM users WHERE id = ?", (user_id,))
     row = cursor.fetchone()
 
@@ -135,8 +134,6 @@ def BookSpot():
 
     flash("Spot booked successfully!", "success")
     return redirect(url_for('user.UserDashboard'))
-
-
 
 
 @user_bp.route("/releaseparking/<int:booking_id>", methods=["POST"])
