@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify,current_app
 import sqlite3
 from datetime import datetime
+from flask_login import login_required
 
 api_bp = Blueprint('api', __name__)
 
@@ -8,6 +9,7 @@ def get_db_path():
     return current_app.config["DB_PATH"]
 
 @api_bp.route('/api/first_free_spot/<int:lot_id>')
+@login_required
 def api_first_free_spot(lot_id):
     conn = sqlite3.connect(get_db_path())
     cursor = conn.cursor()
@@ -26,6 +28,7 @@ def api_first_free_spot(lot_id):
 
 
 @api_bp.route('/api/spot-details/<int:spot_id>')
+@login_required
 def get_spot_summary(spot_id):
     conn = sqlite3.connect(get_db_path())
     cursor = conn.cursor()

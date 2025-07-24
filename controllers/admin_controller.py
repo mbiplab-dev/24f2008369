@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash,current_app
+from flask import Blueprint, render_template, request, redirect, url_for, flash,current_app,session
+from flask_login import logout_user
 import sqlite3
 from werkzeug.utils import secure_filename
 import os
-
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -11,8 +11,15 @@ def get_db_path():
 
 def get_upload_path():
     return current_app.config["UPLOAD_FOLDER"]
+
+
 @admin_bp.route("/admindashboard")
 def AdminDashboard():
+    if not session.get("admin"):
+        logout_user() 
+        session.clear()
+        flash("Admin login required!", "danger")
+        return redirect(url_for("auth.login"))    
     conn = sqlite3.connect(get_db_path())
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
@@ -51,6 +58,11 @@ def AdminDashboard():
 
 @admin_bp.route('/users')
 def show_users():
+    if not session.get("admin"):
+        logout_user() 
+        session.clear()
+        flash("Admin login required!", "danger")
+        return redirect(url_for("auth.login")) 
     conn = sqlite3.connect(get_db_path())
     conn.row_factory = sqlite3.Row  # Allows dict-like access
     cursor = conn.cursor()
@@ -67,6 +79,11 @@ def allowed_file(filename):
 
 @admin_bp.route('/addparkinglot', methods=['POST'])
 def AddParkingLot():
+    if not session.get("admin"):
+        logout_user() 
+        session.clear()
+        flash("Admin login required!", "danger")
+        return redirect(url_for("auth.login")) 
     name = request.form['name']
     address = request.form['address']
     pincode = request.form['pincode']
@@ -102,6 +119,11 @@ def AddParkingLot():
 
 @admin_bp.route('/editparkinglot/<int:lot_id>', methods=['POST'])
 def EditParkingLot(lot_id):
+    if not session.get("admin"):
+        logout_user() 
+        session.clear()
+        flash("Admin login required!", "danger")
+        return redirect(url_for("auth.login")) 
     name = request.form['name']
     address = request.form['address']
     pincode = request.form['pincode']
@@ -169,6 +191,11 @@ def EditParkingLot(lot_id):
 
 @admin_bp.route('/deleteparkinglot/<int:lot_id>', methods=['POST'])
 def DeleteParkingLot(lot_id):
+    if not session.get("admin"):
+        logout_user() 
+        session.clear()
+        flash("Admin login required!", "danger")
+        return redirect(url_for("auth.login")) 
     conn = sqlite3.connect(get_db_path())
     cursor = conn.cursor()
     
@@ -194,6 +221,11 @@ def DeleteParkingLot(lot_id):
 
 @admin_bp.route('/deletespot/<int:spot_id>', methods=['POST'])
 def delete_spot(spot_id):
+    if not session.get("admin"):
+        logout_user() 
+        session.clear()
+        flash("Admin login required!", "danger")
+        return redirect(url_for("auth.login")) 
     conn = sqlite3.connect(get_db_path())
     cursor = conn.cursor()
 
@@ -224,6 +256,11 @@ def delete_spot(spot_id):
 
 @admin_bp.route('/search', methods=['GET', 'POST'])
 def AdminSearch():
+    if not session.get("admin"):
+        logout_user() 
+        session.clear()
+        flash("Admin login required!", "danger")
+        return redirect(url_for("auth.login")) 
     if request.method == 'POST':
         filter_by = request.form['filter_by']
         query = request.form['query']
@@ -319,6 +356,11 @@ def AdminSearch():
 
 @admin_bp.route('/adminsummary')
 def AdminSummary():
+    if not session.get("admin"):
+        logout_user() 
+        session.clear()
+        flash("Admin login required!", "danger")
+        return redirect(url_for("auth.login")) 
     conn = sqlite3.connect(get_db_path())
     cursor = conn.cursor()
 

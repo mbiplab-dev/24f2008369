@@ -1,14 +1,25 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, flash, current_app
 import sqlite3
 from datetime import datetime
-
+from flask_login import UserMixin
+from flask_login import login_required
 
 user_bp = Blueprint('user', __name__)
+
+class User(UserMixin):
+    def __init__(self, id, username, password):
+        self.id = id
+        self.username = username
+        self.password = password
+
+    def get_id(self):
+        return str(self.id)
 
 def get_db_path():
     return current_app.config["DB_PATH"]
 
 @user_bp.route("/dashboard",methods=['GET', 'POST'])
+@login_required
 def UserDashboard():     
     user_id = session.get("user_id")
     if not user_id:
@@ -110,6 +121,7 @@ def UserDashboard():
 
 
 @user_bp.route('/bookspot', methods=['POST'])
+@login_required
 def BookSpot():
     spot_id = request.form['spot_id']
     lot_id = request.form['lot_id']
@@ -137,6 +149,7 @@ def BookSpot():
 
 
 @user_bp.route("/releaseparking/<int:booking_id>", methods=["POST"])
+@login_required
 def ReleaseParking(booking_id):
     release_time = request.form.get("releasing_time")
     total_cost = request.form.get("total_cost")
@@ -175,6 +188,7 @@ def ReleaseParking(booking_id):
 
 
 @user_bp.route("/summary")
+@login_required
 def UserSummary():
     user_id = session.get("user_id")
 
@@ -279,6 +293,7 @@ def UserSummary():
 
 
 @user_bp.route('/editprofile', methods=['GET', 'POST'])
+@login_required
 def EditProfile():
     user_id = session.get('user_id')
     conn = sqlite3.connect(get_db_path())

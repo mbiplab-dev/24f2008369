@@ -1,38 +1,55 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session,current_app
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, current_app
+from flask_login import login_user, logout_user, login_required, UserMixin
 import sqlite3
 from extensions import bcrypt
 
 auth_bp = Blueprint('auth', __name__)
 
+class User(UserMixin):
+    def __init__(self, id, username, password):
+        self.id = id
+        self.username = username
+        self.password = password
+
+    def get_id(self):
+        return str(self.id)
+
 def get_db_path():
     return current_app.config["DB_PATH"]
 
+# Landing page route
 @auth_bp.route('/')
 def LandingPage():
     return render_template("LandingPage.html")
 
-
+# Login route
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
-        if username=="admin" and password=="admin":
+
+        if username == "admin" and password == "admin":
+            session["admin"] = True
+            flash("Admin login successful!", "success")
             return redirect(url_for("admin.AdminDashboard"))
+
+        # Otherwise, check user in DB
         conn = sqlite3.connect(get_db_path())
         cursor = conn.cursor()
-
         cursor.execute("SELECT id, username, password FROM users WHERE username=? ", (username,))
         user = cursor.fetchone()
         conn.close()
 
         if user:
-            user_id, username, stored_password = user
-            if (bcrypt.check_password_hash(stored_password, password)):
+            user_id, username_db, stored_password = user
+            if bcrypt.check_password_hash(stored_password, password):
+                user_obj = User(user_id, username_db, stored_password)
+                login_user(user_obj)  # For flask-login
                 session["user_id"] = user_id
-                session["username"] = username
+                session["username"] = username_db
                 flash("Login successful!", "success")
-                return redirect(url_for("user.UserDashboard")) 
+                return redirect(url_for("user.UserDashboard"))
             else:
                 flash("Incorrect password", "danger")
         else:
@@ -40,7 +57,7 @@ def login():
 
     return render_template("AuthPage.html")
 
-
+# Signup route
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -50,31 +67,34 @@ def signup():
         address = request.form.get('address', '')
         pincode = request.form.get('pincode', '')
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
         try:
             conn = sqlite3.connect(get_db_path())
             cursor = conn.cursor()
-
             cursor.execute('''
                 INSERT INTO users (username, full_name, password, address, pincode)
                 VALUES (?, ?, ?, ?, ?)
             ''', (username, full_name, hashed_password, address, pincode))
-
             conn.commit()
             conn.close()
-            return redirect(url_for('login'))
+            flash("Signup successful! Please log in.", "success")
+            return redirect(url_for('auth.login'))
         except sqlite3.IntegrityError:
-            return "Username or email already exists!"
-    return render_template('AuthPage.html',mode="sign-up-mode")
+            flash("Username already exists!", "danger")
 
+    return render_template('AuthPage.html', mode="sign-up-mode")
 
+# Logout route
 @auth_bp.route("/logout", methods=["POST"])
 def logout():
-    session.clear()
+    logout_user()  # Clear flask-login session
+    session.clear()  # Clear manual session values
     flash("You have been logged out.", "info")
-    return redirect("/") 
+    return redirect("/")
 
-
+# Delete user account
 @auth_bp.route('/delete_account')
+@login_required
 def DeleteAccount():
     user_id = session.get('user_id')
     conn = sqlite3.connect(get_db_path())
@@ -82,6 +102,7 @@ def DeleteAccount():
     cursor.execute("DELETE FROM users WHERE id = ?", (user_id,))
     conn.commit()
     conn.close()
+    logout_user()
     session.clear()
     flash("Your account has been deleted.", "info")
     return redirect("/")
