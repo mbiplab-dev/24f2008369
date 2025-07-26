@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,render_template
 import os
 import sqlite3
 from extensions import bcrypt, login_manager
@@ -34,6 +34,10 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(api_bp)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404ErrorPage.html'), 404
 
 
 if __name__ == '__main__':

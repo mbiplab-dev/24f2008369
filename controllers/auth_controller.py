@@ -34,7 +34,6 @@ def login():
             flash("Admin login successful!", "success")
             return redirect(url_for("admin.AdminDashboard"))
 
-        # Otherwise, check user in DB
         conn = sqlite3.connect(get_db_path())
         cursor = conn.cursor()
         cursor.execute("SELECT id, username, password FROM users WHERE username=? ", (username,))
@@ -57,7 +56,6 @@ def login():
 
     return render_template("AuthPage.html")
 
-# Signup route
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
