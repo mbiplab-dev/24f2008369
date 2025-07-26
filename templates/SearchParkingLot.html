@@ -1,6 +1,17 @@
+<style>
+  .get-direction{
+    background-color: #671f68bb; border: 3px solid #4a154b;text-decoration: none;
+    
+  }
+  .get-direction:hover{
+    background-color: #862a88bb; border: 3px solid #4a154b;text-decoration: none;
+    
+  }
+</style>
+
 <div
   class="w-full rounded-4 d-flex flex-column align-items-center mx-5 my-3 text-white"
-  style="background-color: #671f68bb; border: 3px solid #4A154B;"
+  style="background-color: #671f68bb; border: 3px solid #4a154b"
 >
   <h2 class="my-2">Search Parking Lot</h2>
   <form method="POST" action="/dashboard" class="input-group mb-3 px-3 gap-2">
@@ -64,9 +75,18 @@
           onerror="this.onerror=null; this.src='https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';"
           class="card-img-top"
           alt="Parking Lot Image"
-          style="height: 200px; object-fit:contain; margin-top: 20px"
+          style="height: 200px; object-fit: contain; margin-top: 20px"
         />
+        
+          <a
+            href="{{lot[5]}}"
+            target="_blank"
+            class="get-direction p-2 rounded-2 w-100 d-flex text-white justify-content-center align-items-center mt-1"
+            ><h5 class="m-0">Get Direction</h5> <i class="bx bxs-arrow-in-up-right-stroke-square bx-wiggle m-0 fs-3 mb-0 mx-2" style="translate:0 0.1em;"></i></a
+          >
+          
         <div class="card-body">
+          
           <h5 class="card-title text-primary">{{ lot[3] }}</h5>
           <p class="card-text"><strong>Address:</strong> {{ lot[1] }}</p>
           <p class="card-text">
@@ -82,7 +102,7 @@
             data-bs-target="#BookParking"
             data-lot-id="{{ lot[0] }}"
           >
-            Book Now
+            <h5 class="mb-0">Book Now</h5>
           </button>
         </div>
       </div>

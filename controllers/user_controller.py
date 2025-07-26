@@ -42,7 +42,8 @@ def UserDashboard():
                     pl.address,                    
                     COUNT(ps.id) AS available_spots, 
                     pl.prime_location_name,        
-                    pl.price_per_hour              
+                    pl.price_per_hour,
+                    pl.map_link                  
                 FROM parking_lots pl
                 LEFT JOIN parking_spots ps ON pl.id = ps.lot_id AND ps.Status = 'A'
                 WHERE LOWER(pl.address) LIKE ? OR LOWER(pl.prime_location_name) LIKE ?
@@ -55,7 +56,8 @@ def UserDashboard():
                     pl.address,                    
                     COUNT(ps.id) AS available_spots, 
                     pl.prime_location_name,        
-                    pl.price_per_hour              
+                    pl.price_per_hour,
+                    pl.map_link                  
                 FROM parking_lots pl
                 LEFT JOIN parking_spots ps ON pl.id = ps.lot_id AND ps.Status = 'A'
                 WHERE LOWER(pl.address) LIKE ? OR LOWER(pl.prime_location_name) LIKE ?
@@ -70,7 +72,8 @@ def UserDashboard():
                     pl.address,                    
                     COUNT(ps.id) AS available_spots, 
                     pl.prime_location_name,        
-                    pl.price_per_hour              
+                    pl.price_per_hour,
+                    pl.map_link                  
                 FROM parking_lots pl
                 LEFT JOIN parking_spots ps ON pl.id = ps.lot_id AND ps.Status = 'A'
                 WHERE LOWER(pl.address) LIKE ? OR LOWER(pl.prime_location_name) LIKE ?
@@ -86,7 +89,8 @@ def UserDashboard():
                 pl.address,                    
                 COUNT(ps.id) AS available_spots, 
                 pl.prime_location_name,        
-                pl.price_per_hour              
+                pl.price_per_hour,
+                pl.map_link              
             FROM parking_lots pl
             LEFT JOIN parking_spots ps ON pl.id = ps.lot_id AND ps.Status = 'A'
             GROUP BY pl.id

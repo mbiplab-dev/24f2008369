@@ -14,15 +14,16 @@ class User(UserMixin):
     def get_id(self):
         return str(self.id)
 
+
 def get_db_path():
     return current_app.config["DB_PATH"]
 
-# Landing page route
+
 @auth_bp.route('/')
 def LandingPage():
     return render_template("LandingPage.html")
 
-# Login route
+
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -56,6 +57,7 @@ def login():
 
     return render_template("AuthPage.html")
 
+
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -82,12 +84,12 @@ def signup():
 
     return render_template('AuthPage.html', mode="sign-up-mode")
 
-# Logout route
+
 @auth_bp.route("/logout", methods=["POST"])
 def logout():
     logout_user()  # Clear flask-login session
     session.clear()  # Clear manual session values
-    flash("You have been logged out.", "info")
+    flash("You have been logged out , Kindly log back in !", "info")
     return redirect("/")
 
 # Delete user account

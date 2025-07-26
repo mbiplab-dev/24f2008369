@@ -42,6 +42,7 @@ def AdminDashboard():
             "pincode":lot["pincode"],
             "price_per_hour":lot["price_per_hour"],
             "max_spots": lot["max_spots"],
+            "map_link" : lot["map_link"],
             "available_spots": available_spots,
             "spots": [
                 {
@@ -86,6 +87,7 @@ def AddParkingLot():
         return redirect(url_for("auth.login")) 
     name = request.form['name']
     address = request.form['address']
+    map_link = request.form['map_link']
     pincode = request.form['pincode']
     price = float(request.form['price_per_hour'])
     max_spots = int(request.form['max_spots'])
@@ -94,9 +96,9 @@ def AddParkingLot():
     cursor = conn.cursor()
 
     cursor.execute('''
-        INSERT INTO parking_lots (prime_location_name, price_per_hour, address, pincode, max_spots)
-        VALUES (?, ?, ?, ?, ?)
-    ''', (name, price, address, pincode, max_spots))
+        INSERT INTO parking_lots (prime_location_name, price_per_hour, address, pincode, max_spots, map_link)
+        VALUES (?, ?, ?, ?, ?, ?)
+    ''', (name, price, address, pincode, max_spots,map_link))
 
     lot_id = cursor.lastrowid 
 
@@ -112,7 +114,7 @@ def AddParkingLot():
     image = request.files.get('image')
     if image and allowed_file(image.filename):
         filename = secure_filename(f"lot_{lot_id}" + ".png")
-        image_path = os.path.join(get_upload_path, filename)
+        image_path = os.path.join(get_upload_path(), filename)
         image.save(image_path)
     return redirect(url_for("admin.AdminDashboard"))
 
@@ -129,7 +131,7 @@ def EditParkingLot(lot_id):
     pincode = request.form['pincode']
     price = float(request.form['price_per_hour'])
     max_spots = int(request.form['max_spots'])
-
+    map_link = request.form['map_link']
     conn = sqlite3.connect(get_db_path())
     cursor = conn.cursor()
 
@@ -141,9 +143,9 @@ def EditParkingLot(lot_id):
 
         cursor.execute('''
             UPDATE parking_lots
-            SET prime_location_name = ?, price_per_hour = ?, address = ?, pincode = ?, max_spots = ?
+            SET prime_location_name = ?, price_per_hour = ?, address = ?, pincode = ?, max_spots = ?, map_link = ?
             WHERE id = ?
-        ''', (name, price, address, pincode, max_spots, lot_id))
+        ''', (name, price, address, pincode, max_spots, map_link, lot_id))
 
         if max_spots > current_max_spots:
             for _ in range(current_max_spots + 1, max_spots + 1):
@@ -177,7 +179,7 @@ def EditParkingLot(lot_id):
         image = request.files.get('editImage')
         if image and allowed_file(image.filename):
             filename = secure_filename(f"lot_{lot_id}" + ".png")
-            image_path = os.path.join(get_upload_path, filename)
+            image_path = os.path.join(get_upload_path(), filename)
             image.save(image_path)
         
 

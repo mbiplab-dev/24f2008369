@@ -1,0 +1,32 @@
+#flash-message {
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  animation: fadeOut 0.5s ease-in-out forwards;
+  animation-delay: 3s;
+}
+.flash-message.success {
+  background-color: #4caf50b2;
+  border:2px solid #4caf50;
+}
+.flash-message.danger {
+  background-color: #f73838d7;
+  border:2px solid #f73838;
+}
+.flash-message.info {
+  background-color: #2196f3b2;
+  border:2px solid #2196f3;
+}
+.flash-message.warning {
+  background-color: #ff990091;
+  border:2px solid #ff9900d5;
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+  }
+}

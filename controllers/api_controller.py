@@ -28,7 +28,6 @@ def api_first_free_spot(lot_id):
 
 
 @api_bp.route('/api/spot-details/<int:spot_id>')
-@login_required
 def get_spot_summary(spot_id):
     conn = sqlite3.connect(get_db_path())
     cursor = conn.cursor()

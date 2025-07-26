@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('editPincode').value = button.dataset.pincode;
       document.getElementById('editPrice').value = button.dataset.price;
       document.getElementById('editMaxSpots').value = button.dataset.maxspots;
+      document.getElementById('editMapLink').value = button.dataset.maplink;
       form.action = `/editparkinglot/${button.dataset.lotid}`;
     });
   });

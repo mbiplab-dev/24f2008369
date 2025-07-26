@@ -28,7 +28,8 @@ CREATE TABLE IF NOT EXISTS parking_lots (
     price_per_hour REAL NOT NULL,
     address TEXT NOT NULL,
     pincode TEXT NOT NULL,
-    max_spots INTEGER NOT NULL
+    max_spots INTEGER NOT NULL,
+    map_link TEXT NOT NULL
 )
 ''')
 

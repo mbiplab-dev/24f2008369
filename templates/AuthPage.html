@@ -17,6 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="../static/css/flashmessages.css">
     <link rel="stylesheet" href="../static/css/authpage.css" />
     <title>Login or Signup</title>
   </head>
@@ -26,6 +27,13 @@
         <div class="signin-signup">
           <form action="/login" class="sign-in-form" method="POST">
             <h2 class="title">Sign in</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %} {%
+            if messages %} {% set category, message = messages[-1] %}
+            <div id="flash-message" class="flash-message {{ category }}">
+              {{ message }}
+            </div>
+            {% endif %} {% endwith %}
+
             <div class="input-field">
               <i class="fas fa-user"></i>
               <input
@@ -63,22 +71,42 @@
 
             <div class="input-field">
               <i class="fas fa-id-card"></i>
-              <input type="text" name="full_name" placeholder="Full Name" required/>
+              <input
+                type="text"
+                name="full_name"
+                placeholder="Full Name"
+                required
+              />
             </div>
 
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" name="password" placeholder="Password" required/>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
             </div>
 
             <div class="input-field">
               <i class="fas fa-map-marker-alt"></i>
-              <input type="text" name="address" placeholder="Address" required/>
+              <input
+                type="text"
+                name="address"
+                placeholder="Address"
+                required
+              />
             </div>
 
             <div class="input-field">
               <i class="fas fa-map-pin"></i>
-              <input type="text" name="pincode" placeholder="Pincode" required/>
+              <input
+                type="text"
+                name="pincode"
+                placeholder="Pincode"
+                required
+              />
             </div>
 
             <input type="submit" value="signup" class="btn solid" />
@@ -117,5 +145,13 @@
       </div>
     </div>
     <script src="../static/scripts/signinsignup.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(() => {
+          const msg = document.getElementById("flash-message");
+          if (msg) msg.remove();
+        }, 4000); // 3s delay + 1s animation
+      });
+    </script>
   </body>
 </html>

@@ -8,6 +8,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="../static/css/flashmessages.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
       body {
@@ -26,7 +27,13 @@
   </head>
   <body>
     <div class="content-blur p-2">
-
+      {% with messages = get_flashed_messages(with_categories=true) %} 
+      {% if messages %}
+      {% set category, message = messages[-1] %}
+      <div id="flash-message" class="flash-message {{ category }}">
+        {{ message }}
+      </div>
+      {% endif %} {% endwith %}
       <div class="container d-flex gap-3 mt-4">
         <div
           class="container d-flex flex-grow-1 justify-content-center align-items-center rounded shadow-sm text-white" style="background-color: #6c206da8; border: 3px solid #4A154B;""
@@ -52,7 +59,14 @@
     {%include "ViewDeleteSpot.html"%}
     {%include "OccupiedSpotDetails.html"%}
 
-
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(() => {
+          const msg = document.getElementById("flash-message");
+          if (msg) msg.remove();
+        }, 3500); 
+      });
+    </script>
     <script src="{{ url_for('static', filename='scripts/view_spot.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/edit_lot.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/delete_lot.js') }}"></script>
