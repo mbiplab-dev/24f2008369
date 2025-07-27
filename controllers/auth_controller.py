@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, current_app
 from flask_login import login_user, logout_user, login_required, UserMixin
 import sqlite3
+import os
+import json
 from extensions import bcrypt
 
 auth_bp = Blueprint('auth', __name__)
@@ -19,6 +21,13 @@ def get_db_path():
     return current_app.config["DB_PATH"]
 
 
+CONFIG_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'admin_credentials.json')
+
+with open(CONFIG_PATH) as f:
+    admin_credentials = json.load(f)
+    print(admin_credentials)
+
+
 @auth_bp.route('/')
 def LandingPage():
     return render_template("LandingPage.html")
@@ -30,7 +39,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        if username == "admin" and password == "admin":
+        if username == admin_credentials['username'] and password == admin_credentials['password']:
             session["admin"] = True
             flash("Admin login successful!", "success")
             return redirect(url_for("admin.AdminDashboard"))
@@ -45,7 +54,7 @@ def login():
             user_id, username_db, stored_password = user
             if bcrypt.check_password_hash(stored_password, password):
                 user_obj = User(user_id, username_db, stored_password)
-                login_user(user_obj)  # For flask-login
+                login_user(user_obj)
                 session["user_id"] = user_id
                 session["username"] = username_db
                 flash("Login successful!", "success")

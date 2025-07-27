@@ -53,6 +53,15 @@
           </ul>
         </li>
         <li>
+          <a href="/history">
+            <i class='bx  bx-history'  ></i> 
+            <span class="link_name">History</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="/history">History</a></li>
+          </ul>
+        </li>
+        <li>
           <a
             data-bs-toggle="modal"
             data-bs-target="#EditProfile"
@@ -90,6 +99,8 @@
         {% if (current == "Dashboard")%} {%include "UserDashboard.html"%}
         {%elif (current == "Wallet")%}
         {%include "Wallet.html"%}
+        {%elif (current == "History")%}
+        {%include"HistoryPage.html"%}
         {%else%} {%include "UserSummary.html"%} {% endif %}
       </div>
     </section>

@@ -1,0 +1,47 @@
+<div
+  class="modal fade"
+  id="AddMoney"
+  tabindex="-1"
+  aria-labelledby="AddMoneyLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow rounded-4"style="border: 3px solid #7c217e">
+      <div class="modal-header border-bottom-0">
+        <h3 class="modal-title" id="AddMoneyLabel">Add Money</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form method="POST" action="{{ url_for('user.AddMoney') }}">
+            <div class="mb-3">
+              <label for="username" class="form-label">Enter Amount</label>
+              <input
+                type="number"
+                class="form-control"
+                id="amount"
+                name="amount"
+              />
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary">
+                Confirm Transaction
+              </button>
+              <a
+                href="/dashboard"
+                class="btn btn-danger"
+                >Cancel</a
+              >
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

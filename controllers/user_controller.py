@@ -189,7 +189,11 @@ def ReleaseParking(booking_id):
             SET status = 'A'
             WHERE id = ?
         """, (spot_id,))
-
+        
+        cursor.execute('''
+        INSERT INTO transactions (user_id, amount, type, description) VALUES (?, ?, 'debit',?)
+    ''', (user_id, total_cost,f"Parking fee for booking ID #{booking_id}"))
+        
         cursor.execute("UPDATE users SET wallet_balance = wallet_balance - ? WHERE id = ?", (total_cost, user_id))
         
         conn.commit()
@@ -307,7 +311,32 @@ def UserSummary():
         },
         user=user
     )
+@user_bp.route('/history',methods=['GET'])
+@login_required
+def History():
+    user_id = session.get('user_id')
+    conn =sqlite3.connect(get_db_path())
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT b.id, l.address, b.parking_timestamp, b.vehicle_no, b.leaving_timestamp,b.spot_id,l.price_per_hour
+        FROM bookings b
+        JOIN parking_lots l ON b.lot_id = l.id
+        WHERE b.user_id = ?
+        ORDER BY b.parking_timestamp DESC
+    ''', (user_id,))
+    bookings = cursor.fetchall()
+    
+    cursor.execute("SELECT username, full_name, address, pincode FROM users WHERE id = ?", (user_id,))
+    row = cursor.fetchone()
+    conn.close()
 
+    user = {
+        'username': row[0],
+        'full_name': row[1],
+        'address': row[2],
+        'pincode': row[3]
+    }
+    return render_template("UserTemplate.html",current="History",name=user['full_name'],bookings=bookings,user=user)
 
 @user_bp.route('/editprofile', methods=['GET', 'POST'])
 @login_required
