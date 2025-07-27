@@ -135,7 +135,17 @@ def BookSpot():
 
     conn = sqlite3.connect(get_db_path())
     cursor = conn.cursor()
+    cursor.execute('''
+        SELECT wallet_balance 
+        FROM users
+        WHERE id = ?
+    ''', (user_id,))
+    balance = cursor.fetchone()[0]
 
+    if balance <= 0:
+        flash("Insufficient wallet balance.", "danger")
+        conn.close()
+        return redirect(url_for('user.UserDashboard'))
     cursor.execute('''
         INSERT INTO bookings (spot_id, lot_id, user_id,vehicle_no, parking_timestamp)
         VALUES (?, ?, ?, ?, ?)
@@ -155,6 +165,7 @@ def BookSpot():
 @user_bp.route("/releaseparking/<int:booking_id>", methods=["POST"])
 @login_required
 def ReleaseParking(booking_id):
+    user_id = session.get("user_id")
     release_time = request.form.get("releasing_time")
     total_cost = request.form.get("total_cost")
     spot_id = request.form.get("spot_id")
@@ -179,6 +190,8 @@ def ReleaseParking(booking_id):
             WHERE id = ?
         """, (spot_id,))
 
+        cursor.execute("UPDATE users SET wallet_balance = wallet_balance - ? WHERE id = ?", (total_cost, user_id))
+        
         conn.commit()
         conn.close()
 
@@ -337,3 +350,53 @@ def EditProfile():
     }
 
     return redirect(url_for("user.UserDashboard"))
+
+@user_bp.route('/wallet')
+@login_required
+def wallet():
+    user_id = session.get("user_id")
+    conn = sqlite3.connect(get_db_path())
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT wallet_balance FROM users WHERE id = ?", (user_id,))
+    balance = cursor.fetchone()[0]
+
+    cursor.execute('''
+        SELECT amount,description, type, timestamp FROM transactions 
+        WHERE user_id = ? ORDER BY timestamp DESC LIMIT 10
+    ''', (user_id,))
+    transactions = cursor.fetchall()
+
+    cursor.execute("SELECT username, full_name, address, pincode FROM users WHERE id = ?", (user_id,))
+    row = cursor.fetchone()
+
+    user = {
+        'username': row[0],
+        'full_name': row[1],
+        'address': row[2],
+        'pincode': row[3]
+    }
+    print(transactions)
+    conn.close()
+    return render_template("UserTemplate.html",current="Wallet",name=user['full_name'], balance=balance, transactions=transactions,user=user)
+
+
+@user_bp.route('/addmoney', methods=['POST'])
+@login_required
+def AddMoney():
+    amount = float(request.form['amount'])
+    user_id = session.get("user_id")
+
+    conn = sqlite3.connect(get_db_path())
+    cursor = conn.cursor()
+
+    cursor.execute("UPDATE users SET wallet_balance = wallet_balance + ? WHERE id = ?", (amount, user_id))
+
+    cursor.execute('''
+        INSERT INTO transactions (user_id, amount, type, description) VALUES (?, ?, 'credit',?)
+    ''', (user_id, amount,"Wallet Top-Up"))
+
+    conn.commit()
+    conn.close()
+    flash(f"₹{amount:.2f} added to your wallet!", "success")
+    return redirect(url_for("user.wallet"))

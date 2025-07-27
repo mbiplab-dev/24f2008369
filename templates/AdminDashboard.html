@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
       body {
-        background-color: #edf3ff;
         font-family: 'Poppins', 'Roboto', sans-serif;
       }
       .a {
@@ -26,7 +25,8 @@
     </style>
   </head>
   <body>
-    <div class="content-blur p-2">
+    {%include "Info.html"%}
+    <div class="content-blur py-2 px-3">
       {% with messages = get_flashed_messages(with_categories=true) %} 
       {% if messages %}
       {% set category, message = messages[-1] %}

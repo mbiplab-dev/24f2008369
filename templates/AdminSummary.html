@@ -17,7 +17,6 @@
     <style>
       body {
         font-family: "Poppins", "Roboto", sans-serif;
-        background-color: #edf3ff;
       }
       .card-sm {
         background-color: #671f68bb; border: 3px solid #4A154B;
@@ -37,9 +36,10 @@
     </style>
   </head>
   <body>
-    <div class="content-blur py-3 px-5">
+    {%include "Info.html"%}
+    <div class="content-blur py-3">
       <div class="container ">
-        <h2 class="fw-bold text-center mb-4">Admin Dashboard Summary</h2>
+        <h2 class="fw-bold text-center mb-4">Summary</h2>
         <div class="row g-4 mb-4">
           <div class="col-md-3">
             <div class="card-sm text-center p-3 shadow-sm">

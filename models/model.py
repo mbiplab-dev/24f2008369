@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS users (
     full_name TEXT NOT NULL,
     password TEXT NOT NULL,
     address TEXT,
-    pincode TEXT
+    pincode TEXT,
+    wallet_balance REAL DEFAULT 0.0
 )
 ''')
 
@@ -57,6 +58,18 @@ CREATE TABLE IF NOT EXISTS bookings (
     FOREIGN KEY (spot_id) REFERENCES parking_spots(id),
     FOREIGN KEY (lot_id) REFERENCES parking_lots(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
+)
+''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS transactions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    amount REAL NOT NULL,
+    type TEXT CHECK(type IN ('credit', 'debit')) NOT NULL,
+    description TEXT,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(user_id) REFERENCES users(id)
 )
 ''')
 

@@ -44,6 +44,15 @@
           </ul>
         </li>
         <li>
+          <a href="/wallet">
+            <i class="bx bxs-wallet " ></i>
+            <span class="link_name">Wallet</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="/wallet">Wallet</a></li>
+          </ul>
+        </li>
+        <li>
           <a
             data-bs-toggle="modal"
             data-bs-target="#EditProfile"
@@ -79,6 +88,8 @@
       </div>
       <div>
         {% if (current == "Dashboard")%} {%include "UserDashboard.html"%}
+        {%elif (current == "Wallet")%}
+        {%include "Wallet.html"%}
         {%else%} {%include "UserSummary.html"%} {% endif %}
       </div>
     </section>

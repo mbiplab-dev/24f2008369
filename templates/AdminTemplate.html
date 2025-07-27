@@ -82,7 +82,7 @@
       <div>{% if (current == "Dashboard")%}
         {%include "AdminDashboard.html"%}
         {%elif (current == "Users")%}
-        {%include "RegisteredUsers.html"%}
+        {%include "RegisteredUsersTemplate.html"%}
         {%elif (current == "Search")%}
         {%include "AdminSearch.html"%}
         {%else%}
@@ -91,7 +91,6 @@
 
     </div>
     </section>
-    {%include "LogoutCard.html"%}
     <script>
       let arrow = document.querySelectorAll(".arrow");
       for (var i = 0; i < arrow.length; i++) {
@@ -108,7 +107,6 @@
     </script>
         {% include "EditParkingLotCard.html" %}
     {% include "DeleteParkingLotCard.html" %}
-    {%include "LogoutCard.html"%}
     {%include "ViewDeleteSpot.html"%}
     {%include "OccupiedSpotDetails.html"%}
     <script src="{{ url_for('static', filename='scripts/view_spot.js') }}"></script>

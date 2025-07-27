@@ -123,7 +123,8 @@
     </style>
   </head>
   <body>
-    <div class="content-blur py-3 px-5">
+    
+    <div class="content-blur p-3 ">
       {% with messages = get_flashed_messages(with_categories=true) %} 
       {% if messages %}
       {% set category, message = messages[-1] %}
@@ -136,13 +137,13 @@
       {% endif %}
       {%include "SearchParkingLot.html"%}
     </div>
-    {% include "ReleaseParkingSpot.html" %} {%include "BookParkingSpot.html"%}
+    {% include "ReleaseParkingSpot.html" %} {%include "BookParkingSpot.html"%}{%include "Info.html"%}
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           const msg = document.getElementById("flash-message");
           if (msg) msg.remove();
-        }, 4000); // 3s delay + 1s animation
+        }, 4000);
       });
     </script>
     <script src="{{ url_for('static', filename='scripts/release.js') }}"></script>

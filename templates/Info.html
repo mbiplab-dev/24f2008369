@@ -1,0 +1,80 @@
+<style>
+  #info-btn {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: #59185ac7;
+    color: white;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px solid #59185a;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    transition: background-color 0.3s ease;
+  }
+
+  #info-btn:hover {
+    background-color: #802081c7;
+  }
+
+  #info-box {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background-color: #fefefe;
+    border: 1px solid #ccc;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 9999;
+    animation: fadeIn 0.3s;
+  }
+
+  #info-box p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+  }
+
+  #info-box button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #59185ac7;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #info-box button:hover {
+    background-color: #802081c7;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+
+<div id="info-btn" onclick="toggleInfoBox()">i</div>
+
+<div id="info-box">
+  <p>Made by Biplab K. Mohanty</p>
+  <button onclick="toggleInfoBox()">Close</button>
+</div>
+
+
+<script>
+  function toggleInfoBox() {
+    const box = document.getElementById("info-box");
+    box.style.display = box.style.display === "block" ? "none" : "block";
+  }
+</script>
