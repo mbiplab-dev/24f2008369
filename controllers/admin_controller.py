@@ -65,7 +65,7 @@ def show_users():
         flash("Admin login required!", "danger")
         return redirect(url_for("auth.login")) 
     conn = sqlite3.connect(get_db_path())
-    conn.row_factory = sqlite3.Row  # Allows dict-like access
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM users')
     users = cursor.fetchall()

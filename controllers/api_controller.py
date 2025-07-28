@@ -58,7 +58,7 @@ def get_spot_summary(spot_id):
             fmt = "%Y-%m-%d %H:%M:%S"
             dt_park = datetime.strptime(parking_time, fmt)
             dt_now = datetime.now()
-            hours = max((dt_now - dt_park).total_seconds() / 3600, 0.5)  # min 30 mins
+            hours = max((dt_now - dt_park).total_seconds() / 3600, 0.5)  
             cost = round(hours * row[7], 2)
 
         return jsonify({

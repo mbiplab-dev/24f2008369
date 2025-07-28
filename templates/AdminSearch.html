@@ -41,54 +41,61 @@
       >
         <form method="POST" class="w-100">
           <div class="input-group">
-            <div class="input-group-prepend">
-              <button
-                class="btn btn-outline-light dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                id="dropdownMenuButton"
-              >
-                Dropdown
-              </button>
-              <div class="dropdown-menu">
+            <button
+              class="btn btn-outline-light dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              id="dropdownMenuButton"
+            >
+              Search by
+            </button>
+            <ul class="dropdown-menu">
+              <li>
                 <a
                   class="dropdown-item"
                   href="#"
                   onclick="selectOption('User Id')"
                   >User Id</a
                 >
-                <div role="separator" class="dropdown-divider"></div>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
                 <a
                   class="dropdown-item"
                   href="#"
                   onclick="selectOption('User Address')"
                   >User Address</a
                 >
-                <div role="separator" class="dropdown-divider"></div>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
                 <a
                   class="dropdown-item"
                   href="#"
                   onclick="selectOption('Lot Id')"
                   >Lot Id</a
                 >
-                <div role="separator" class="dropdown-divider"></div>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
                 <a
                   class="dropdown-item"
                   href="#"
                   onclick="selectOption('Lot Address')"
                   >Lot Address</a
                 >
-                <div role="separator" class="dropdown-divider"></div>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
                 <a
                   class="dropdown-item"
                   href="#"
                   onclick="selectOption('Spot Id')"
                   >Spot Id</a
                 >
-              </div>
-            </div>
+              </li>
+            </ul>
 
             <input
               type="hidden"
@@ -106,9 +113,7 @@
               required
             />
 
-            <div class="input-group-append">
-              <button class="btn btn-light" type="submit">Search</button>
-            </div>
+            <button class="btn btn-light" type="submit">Search</button>
           </div>
         </form>
       </div>
@@ -137,7 +142,7 @@
             <h5><strong>Lot Address:</strong> {{ results[3] }}</h5>
             <h5>
               <strong>Availability:</strong>
-              {% if results[6] == 'A' %}
+              {% if results[7] == 'A' %}
               <span class="badge bg-success"
                 ><h5 class="mb-0">Available</h5></span
               >

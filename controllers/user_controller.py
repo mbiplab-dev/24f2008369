@@ -405,7 +405,6 @@ def wallet():
         'address': row[2],
         'pincode': row[3]
     }
-    print(transactions)
     conn.close()
     return render_template("UserTemplate.html",current="Wallet",name=user['full_name'], balance=balance, transactions=transactions,user=user)
 

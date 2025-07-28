@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     showButtons.forEach(button => {
       button.addEventListener('click', async () => {
         const spotId = button.getAttribute('data-showspotid');
-        console.log(spotId)
         if (!spotId) {
           alert("No spot ID found on button.");
           return;
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
             alert("Spot not found!");
             return;
           }
-          console.log(data.vehicle_no + data.parking_time)
           document.getElementById("showSpotId").textContent = data.spot_id ?? "-";
           document.getElementById("showUserId").textContent = data.user_id ?? "Not booked";
           document.getElementById("showVehicleNo").textContent = data.vehicle_no ?? "-";

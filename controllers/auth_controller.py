@@ -95,8 +95,8 @@ def signup():
 
 @auth_bp.route("/logout", methods=["POST"])
 def logout():
-    logout_user()  # Clear flask-login session
-    session.clear()  # Clear manual session values
+    logout_user()
+    session.clear()
     flash("You have been logged out , Kindly log back in !", "info")
     return redirect("/")
 
