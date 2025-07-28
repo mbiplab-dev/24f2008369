@@ -6,7 +6,10 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content shadow rounded-4" style="border: 3px solid #7c217e">
+    <div
+      class="modal-content shadow rounded-4"
+      style="border: 3px solid #7c217e"
+    >
       <div class="modal-header border-bottom-0">
         <h3 class="modal-title" id="LogoutCardLabel">Confirm logout?</h3>
         <button
@@ -16,10 +19,12 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form method="POST" id="LogoutCardForm" action="/logout" >
+        <form method="POST" id="LogoutCardForm" action="/logout">
           <div class="d-flex justify-content-around mt-4">
             <button type="submit" class="btn btn-danger px-4">Logout</button>
-            <a href="/dashboard" class="btn btn-outline-primary px-4">Go Back</a>
+            <a href="/dashboard" class="btn btn-outline-primary px-4"
+              >Go Back</a
+            >
           </div>
         </form>
       </div>

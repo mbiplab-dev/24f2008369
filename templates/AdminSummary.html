@@ -19,13 +19,14 @@
         font-family: "Poppins", "Roboto", sans-serif;
       }
       .card-sm {
-        background-color: #671f68bb; border: 3px solid #4A154B;
+        background-color: #671f68bb;
+        border: 3px solid #4a154b;
         color: white;
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
       }
       .card {
-        border: 3px solid #4A154B;
+        border: 3px solid #4a154b;
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
       }
@@ -38,7 +39,7 @@
   <body>
     {%include "Info.html"%}
     <div class="content-blur py-3">
-      <div class="container ">
+      <div class="container">
         <h2 class="fw-bold text-center mb-4">Summary</h2>
         <div class="row g-4 mb-4">
           <div class="col-md-3">
@@ -82,67 +83,67 @@
           </div>
         </div>
         <div class="card p-3 shadow-sm mt-4">
-          <h6 class="fw-bold">Daily Revenue Trend</h6>
-        <canvas id="bookingsChart" width="400" height="200"></canvas>
+          <h6 class="fw-bold">Bookings Per Day</h6>
+          <canvas id="bookingsChart" width="400" height="200"></canvas>
         </div>
       </div>
     </div>
     {%include "LogoutCard.html"%}
     <script>
-      new Chart(document.getElementById('lotIncomeChart'), {
-        type: 'bar',
-        data: {
-          labels: {{ charts.lot_names | tojson }},
-          datasets: [{
-            label: 'Income (₹)',
-            data: {{ charts.lot_income | tojson }},
-            backgroundColor: '#0d6efd'
-          }]
-        }
-      });
-
-      new Chart(document.getElementById('dailyIncomeChart'), {
-        type: 'line',
-        data: {
-          labels: {{ charts.days | tojson }},
-          datasets: [{
-            label: '₹ Daily Income',
-            data: {{ charts.daily_income | tojson }},
-            borderColor: '#6610f2',
-            fill: false,
-            tension: 0.3
-          }]
-        }
-      });
-       const ctx = document.getElementById('bookingsChart').getContext('2d');
-    const bookingsChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: {{ booking_chart.booking_days | tojson }},
+        new Chart(document.getElementById('lotIncomeChart'), {
+          type: 'bar',
+          data: {
+            labels: {{ charts.lot_names | tojson }},
             datasets: [{
-                label: 'Total Bookings per Day',
-                data: {{ booking_chart.daily_bookings | tojson }},
-                fill: false,
-                borderColor: 'rgb(54, 162, 235)',
-                tension: 0.3
+              label: 'Income (₹)',
+              data: {{ charts.lot_income | tojson }},
+              backgroundColor: '#0d6efd'
             }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Daily Bookings (Last 7 Days)'
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    precision: 0
-                }
-            }
-        }
-    });
+          }
+        });
+
+        new Chart(document.getElementById('dailyIncomeChart'), {
+          type: 'line',
+          data: {
+            labels: {{ charts.days | tojson }},
+            datasets: [{
+              label: '₹ Daily Income',
+              data: {{ charts.daily_income | tojson }},
+              borderColor: '#6610f2',
+              fill: false,
+              tension: 0.3
+            }]
+          }
+        });
+         const ctx = document.getElementById('bookingsChart').getContext('2d');
+      const bookingsChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: {{ booking_chart.booking_days | tojson }},
+              datasets: [{
+                  label: 'Total Bookings per Day',
+                  data: {{ booking_chart.daily_bookings | tojson }},
+                  fill: false,
+                  borderColor: 'rgb(54, 162, 235)',
+                  tension: 0.3
+              }]
+          },
+          options: {
+              responsive: true,
+              plugins: {
+                  title: {
+                      display: true,
+                      text: 'Daily Bookings (Last 7 Days)'
+                  }
+              },
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      precision: 0
+                  }
+              }
+          }
+      });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>

@@ -18,7 +18,7 @@
         font-family: "Poppins", "Roboto", sans-serif;
       }
       .card {
-        border: 3px solid #4A154B;
+        border: 3px solid #4a154b;
         border-radius: 12px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
       }
@@ -27,14 +27,14 @@
   <body>
     {%include "Info.html"%}
     <div class="content-blur py-3">
-      <div class="container ">
+      <div class="container">
         <h2 class="mb-4 fw-bold text-center">Your Parking Summary</h2>
 
         <div class="row g-4 mb-5">
           <div class="col-md-3">
             <div
               class="card p-3 text-center text-white"
-              style="background-color: #671f68bb;"
+              style="background-color: #671f68bb"
             >
               <h5>Total Bookings</h5>
               <h3>{{ stats.total_bookings }}</h3>
@@ -43,7 +43,7 @@
           <div class="col-md-3">
             <div
               class="card p-3 text-center text-white"
-              style="background-color: #671f68bb;"
+              style="background-color: #671f68bb"
             >
               <h5>Total Hours Parked</h5>
               <h3>{{ stats.total_time }}</h3>
@@ -52,7 +52,7 @@
           <div class="col-md-3">
             <div
               class="card p-3 text-center text-white"
-              style="background-color: #671f68bb;"
+              style="background-color: #671f68bb"
             >
               <h5>Total Amount Spent</h5>
               <h3>₹{{ stats.total_cost }}</h3>

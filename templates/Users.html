@@ -1,28 +1,30 @@
 <div class="px-3 w-100 rounded-2 p-3">
-          <table class="table table-bordered table-hover table-striped shadow text-center align-middle">
-            <thead class="table-primary">
-              <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Full Name</th>
-                <th>Address</th>
-                <th>Pincode</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for user in users %}
-              <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.full_name }}</td>
-                <td>{{ user.address or '-' }}</td>
-                <td>{{ user.pincode or '-' }}</td>
-              </tr>
-              {% else %}
-              <tr>
-                <td colspan="6" class="text-center">No users found.</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
+  <table
+    class="table table-bordered table-hover table-striped shadow text-center align-middle"
+  >
+    <thead class="table-primary">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Full Name</th>
+        <th>Address</th>
+        <th>Pincode</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.full_name }}</td>
+        <td>{{ user.address or '-' }}</td>
+        <td>{{ user.pincode or '-' }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6" class="text-center">No users found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

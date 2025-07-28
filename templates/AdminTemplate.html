@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="../static/css/sidebar.css" />
-    <link rel="icon" href="../static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../static/images/favicon.png" type="image/x-icon" />
     <link
       href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
       rel="stylesheet"
@@ -36,7 +36,7 @@
         </li>
         <li>
           <a href="/search">
-            <i class='bx  bx-search-alt'  ></i> 
+            <i class="bx bx-search-alt"></i>
             <span class="link_name">Search</span>
           </a>
           <ul class="sub-menu blank">
@@ -45,7 +45,7 @@
         </li>
         <li>
           <a href="/users">
-            <i class='bx  bx-community'  ></i> 
+            <i class="bx bx-community"></i>
             <span class="link_name">Users</span>
           </a>
           <ul class="sub-menu blank">
@@ -62,7 +62,11 @@
           </ul>
         </li>
         <li>
-          <a data-bs-toggle="modal" data-bs-target="#LogoutCard" style="cursor: pointer;">
+          <a
+            data-bs-toggle="modal"
+            data-bs-target="#LogoutCard"
+            style="cursor: pointer"
+          >
             <i class="bx bx-log-out"></i>
             <span class="link_name">Logout</span>
           </a>
@@ -73,23 +77,17 @@
       </ul>
     </div>
     <section class="home-section">
-      <div class="home-content ">
-        <i class="bx bx-menu" style="width: 150px;"></i>
+      <div class="home-content">
+        <i class="bx bx-menu" style="width: 150px"></i>
         <span class="text-nowrap">Welcome, Admin</span>
-        <span class="text" style="margin-right: 20px;">{{current}}</span>
-        
+        <span class="text" style="margin-right: 20px">{{current}}</span>
       </div>
-      <div>{% if (current == "Dashboard")%}
-        {%include "AdminDashboard.html"%}
-        {%elif (current == "Users")%}
-        {%include "RegisteredUsersTemplate.html"%}
-        {%elif (current == "Search")%}
-        {%include "AdminSearch.html"%}
-        {%else%}
-        {%include "AdminSummary.html"%}
-        {% endif %}
-
-    </div>
+      <div>
+        {% if (current == "Dashboard")%} {%include "AdminDashboard.html"%}
+        {%elif (current == "Users")%} {%include "RegisteredUsersTemplate.html"%}
+        {%elif (current == "Search")%} {%include "AdminSearch.html"%} {%else%}
+        {%include "AdminSummary.html"%} {% endif %}
+      </div>
     </section>
     <script>
       let arrow = document.querySelectorAll(".arrow");
@@ -105,10 +103,9 @@
         sidebar.classList.toggle("close");
       });
     </script>
-        {% include "EditParkingLotCard.html" %}
-    {% include "DeleteParkingLotCard.html" %}
-    {%include "ViewDeleteSpot.html"%}
-    {%include "OccupiedSpotDetails.html"%}
+    {% include "EditParkingLotCard.html" %} {% include
+    "DeleteParkingLotCard.html" %} {%include "ViewDeleteSpot.html"%} {%include
+    "OccupiedSpotDetails.html"%}
     <script src="{{ url_for('static', filename='scripts/view_spot.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/edit_lot.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/delete_lot.js') }}"></script>

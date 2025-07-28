@@ -123,21 +123,18 @@
     </style>
   </head>
   <body>
-    
-    <div class="content-blur p-3 ">
-      {% with messages = get_flashed_messages(with_categories=true) %} 
-      {% if messages %}
-      {% set category, message = messages[-1] %}
+    <div class="content-blur p-3">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% set category, message = messages[-1] %}
       <div id="flash-message" class="flash-message {{ category }}">
         {{ message }}
       </div>
-      {% endif %} {% endwith %}
-      {%if not(bookings==[])%}
-      {%include "RecentParkingHistory.html"%}
-      {% endif %}
-      {%include "SearchParkingLot.html"%}
+      {% endif %} {% endwith %} {%if not(bookings==[])%} {%include
+      "RecentParkingHistory.html"%} {% endif %} {%include
+      "SearchParkingLot.html"%}
     </div>
-    {% include "ReleaseParkingSpot.html" %} {%include "BookParkingSpot.html"%}{%include "Info.html"%}
+    {% include "ReleaseParkingSpot.html" %} {%include
+    "BookParkingSpot.html"%}{%include "Info.html"%}
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {

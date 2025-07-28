@@ -7,7 +7,7 @@
       href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="icon" href="../static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="../static/images/favicon.png" type="image/x-icon" />
     <link
       href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
       rel="stylesheet"
@@ -45,7 +45,7 @@
         </li>
         <li>
           <a href="/wallet">
-            <i class="bx bxs-wallet " ></i>
+            <i class="bx bxs-wallet"></i>
             <span class="link_name">Wallet</span>
           </a>
           <ul class="sub-menu blank">
@@ -54,7 +54,7 @@
         </li>
         <li>
           <a href="/history">
-            <i class='bx  bx-history'  ></i> 
+            <i class="bx bx-history"></i>
             <span class="link_name">History</span>
           </a>
           <ul class="sub-menu blank">
@@ -96,12 +96,10 @@
         <span class="text" style="margin-right: 20px">{{current}}</span>
       </div>
       <div>
-        {% if (current == "Dashboard")%} {%include "UserDashboard.html"%}
-        {%elif (current == "Wallet")%}
-        {%include "Wallet.html"%}
-        {%elif (current == "History")%}
-        {%include"HistoryPage.html"%}
-        {%else%} {%include "UserSummary.html"%} {% endif %}
+        {% if (current == "Dashboard")%} {%include "UserDashboard.html"%} {%elif
+        (current == "Wallet")%} {%include "Wallet.html"%} {%elif (current ==
+        "History")%} {%include"HistoryPage.html"%} {%else%} {%include
+        "UserSummary.html"%} {% endif %}
       </div>
     </section>
     {%include "LogoutCard.html"%} {%include "EditProfile.html"%}

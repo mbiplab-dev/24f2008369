@@ -25,7 +25,6 @@ CONFIG_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'admin_crede
 
 with open(CONFIG_PATH) as f:
     admin_credentials = json.load(f)
-    print(admin_credentials)
 
 
 @auth_bp.route('/')
