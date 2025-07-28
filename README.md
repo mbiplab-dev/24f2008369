@@ -1,3 +1,5 @@
+#Demonstration video link - https://drive.google.com/file/d/1AiDf8UNUZPsZdJp0wFGnEedjbDxmYMi9/view?usp=sharing
+
 # 🚗 Vehicle Parking App - V1
 
 A web-based vehicle parking management system built with **Flask**, **SQLite**, **Bootstrap**, and **Chart.js** that allows users to search, book, and manage parking lots, while giving administrators powerful tools to control availability, pricing, and statistics.
