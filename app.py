@@ -4,6 +4,9 @@ import sqlite3
 from extensions import bcrypt, login_manager
 from controllers.user_controller import User  
 
+# NOTE: Before running this app, run init.py to install dependencies and initialize the database:
+# python init.py
+
 app = Flask(__name__)
 app.secret_key = "lol" 
 

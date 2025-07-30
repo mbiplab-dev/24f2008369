@@ -9,4 +9,12 @@ def install_all_requirements():
     else:
         print("requirements.txt not found.")
 
+def initialize_database():
+    model_path = os.path.join(os.path.dirname(__file__), "models", "model.py")
+    if os.path.exists(model_path):
+        subprocess.run([sys.executable, model_path], check=True)
+    else:
+        print("models/model.py not found.")
+
 install_all_requirements()
+initialize_database()
